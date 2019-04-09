@@ -41,7 +41,7 @@ public class TripFragment extends Fragment {
     DatabaseReference myRef;
     private List<IndividualTrip> list;
     private TripAdapter tripAdapter;
-    private Context context;
+    //private Context context;
     private FirebaseAuth firebaseAuth;
     String currentuser;
 
@@ -83,7 +83,7 @@ public class TripFragment extends Fragment {
                         list.add(trip);
 
                     }
-                    tripAdapter = new TripAdapter(list,context);
+                    tripAdapter = new TripAdapter(list,getContext());
                     triprecyclerView.setAdapter(tripAdapter);
                     tripAdapter.notifyDataSetChanged();
                 }else {
@@ -93,7 +93,7 @@ public class TripFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(context, ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
