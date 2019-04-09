@@ -31,11 +31,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        IndividualTrip mylist = individualTrips.get(position);
-        viewHolder.trip_title.setText(""+mylist.getEvent_Name());
-        viewHolder.trip_description.setText(""+mylist.getEvent_Description());
-        viewHolder.fromdate.setText(""+mylist.getFrom_Date());
-        viewHolder.todate.setText(""+mylist.getTo_Date());
+        IndividualTrip trip = individualTrips.get(position);
+        viewHolder.trip_title.setText(""+trip.getEventName());
+        viewHolder.trip_description.setText(""+trip.getEventDescription());
+        viewHolder.fromdate.setText(""+trip.getFromDate());
+        viewHolder.todate.setText(""+trip.getToDate());
     }
 
     @Override

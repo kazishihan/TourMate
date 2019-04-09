@@ -122,12 +122,12 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
 
     private void InsertDatatoDatabase(final String triptitle, final String tripDescription, final String addTripToDate, final String addTripFromDate) {
         final IndividualTrip individualTrip = new IndividualTrip();
-        individualTrip.setEvent_Description(tripDescription);
-        individualTrip.setEvent_Name(triptitle);
-        individualTrip.setFrom_Date(addTripFromDate);
-        individualTrip.setTo_Date(addTripToDate);
+        individualTrip.setEventDescription(tripDescription);
+        individualTrip.setEventName(triptitle);
+        individualTrip.setFromDate(addTripFromDate);
+        individualTrip.setToDate(addTripToDate);
 
-                postRef.child(currentuser + postrandomname).setValue(individualTrip)
+        postRef.child(postRef.push().getKey()).setValue(individualTrip)
                         .addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {

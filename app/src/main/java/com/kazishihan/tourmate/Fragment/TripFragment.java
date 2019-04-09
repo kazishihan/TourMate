@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class TripFragment extends Fragment {
 
 
         triprecyclerView = view.findViewById(R.id.trip_recycler_view);
-        triprecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        triprecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         fab = view.findViewById(R.id.fab);
@@ -77,11 +78,11 @@ public class TripFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    Log.w("+++++++",dataSnapshot.toString());
                     list.clear();
                     for (DataSnapshot data: dataSnapshot.getChildren()) {
                         IndividualTrip trip = data.getValue(IndividualTrip.class);
                         list.add(trip);
-
                     }
                     tripAdapter = new TripAdapter(list,getContext());
                     triprecyclerView.setAdapter(tripAdapter);

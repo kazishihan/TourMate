@@ -1,43 +1,41 @@
 package com.kazishihan.tourmate.Classes;
 
-import java.util.Map;
 
 public class IndividualTrip{
-    public String Event_Description;
-    public String Event_Name;
-    public String From_Date;
-    public String To_Date;
+    private String eventDescription;
+    private String eventName;
+    private String fromDate;
+    private String toDate;
 
-
-    public String getEvent_Description() {
-        return Event_Description;
+    public String getEventDescription() {
+        return eventDescription;
     }
 
-    public void setEvent_Description(String Event_Description) {
-        Event_Description = Event_Description;
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
-    public String getEvent_Name() {
-        return Event_Name;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setEvent_Name(String event_Name) {
-        Event_Name = event_Name;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public String getFrom_Date() {
-        return From_Date;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom_Date(String from_Date) {
-        From_Date = from_Date;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public String getTo_Date() {
-        return To_Date;
+    public String getToDate() {
+        return toDate;
     }
 
-    public void setTo_Date(String to_Date) {
-        To_Date = to_Date;
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 }

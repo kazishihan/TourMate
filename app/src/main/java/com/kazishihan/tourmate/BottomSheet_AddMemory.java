@@ -19,10 +19,11 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.bottom_add_memory, container, false);
+        //final View view = inflater.inflate(R.layout.bottom_add_memory, container, false);
 
 
 
-        return view;
+       // return view;
+        return null;
     }
 }
