@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kazishihan.tourmate.Activity.MemoryActivity;
+import com.kazishihan.tourmate.Activity.WalletActivity;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
 import com.kazishihan.tourmate.R;
 
@@ -94,7 +95,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                     public void onClick(View v) {
 
                         String current_event = mylist.getTrip_id();
-                        Intent intent = new Intent(context, MemoryActivity.class);
+                        Intent intent = new Intent(context, WalletActivity.class);
                         intent.putExtra("current_event",current_event);
                         context.startActivity(intent);
 

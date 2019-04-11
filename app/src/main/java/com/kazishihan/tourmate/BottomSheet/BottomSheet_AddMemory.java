@@ -127,7 +127,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
 
     private void storingImagetostorage() {
         Calendar callForDate = Calendar.getInstance();
-        SimpleDateFormat currentdate = new SimpleDateFormat("dd-MMM-yyyyy");
+        SimpleDateFormat currentdate = new SimpleDateFormat("dd-MMM-yyyy");
         savecurrentdate = currentdate.format(callForDate.getTime());
 
         Calendar callfortime = Calendar.getInstance();
@@ -150,7 +150,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             downloadurl = uri.toString();
-                            savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl));
+                            savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl,savecurrentdate,savecurrenttime));
                         }
                     });
 
@@ -172,7 +172,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -6,22 +6,18 @@ public class MemoryClass {
     private String captionDescription;
     private String caption;
     private String postimages;
-
+    private String  currentMemoryDate;
+    private String currentMemoryTime;
 
     public MemoryClass() {
     }
 
-    public MemoryClass(String captionDescription, String caption, String postimages) {
+    public MemoryClass(String captionDescription, String caption, String postimages, String currentMemoryDate, String currentMemoryTime) {
         this.captionDescription = captionDescription;
         this.caption = caption;
         this.postimages = postimages;
-    }
-
-    public MemoryClass(String memory_id, String captionDescription, String caption, String postimages) {
-        this.memory_id = memory_id;
-        this.captionDescription = captionDescription;
-        this.caption = caption;
-        this.postimages = postimages;
+        this.currentMemoryDate = currentMemoryDate;
+        this.currentMemoryTime = currentMemoryTime;
     }
 
     public String getMemory_id() {
@@ -54,5 +50,21 @@ public class MemoryClass {
 
     public void setPostimages(String postimages) {
         this.postimages = postimages;
+    }
+
+    public String getCurrentMemoryDate() {
+        return currentMemoryDate;
+    }
+
+    public void setCurrentMemoryDate(String currentMemoryDate) {
+        this.currentMemoryDate = currentMemoryDate;
+    }
+
+    public String getCurrentMemoryTime() {
+        return currentMemoryTime;
+    }
+
+    public void setCurrentMemoryTime(String currentMemoryTime) {
+        this.currentMemoryTime = currentMemoryTime;
     }
 }
