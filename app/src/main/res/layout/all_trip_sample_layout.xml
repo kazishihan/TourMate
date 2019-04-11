@@ -1,46 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/mainColor"
+    android:layout_margin="5dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:background="@color/mainColor"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trip Name"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:id="@+id/trip_name_id"/>
+            <TextView
+                android:gravity=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trip Name"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:id="@+id/trip_name_id"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trip Description"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:id="@+id/trip_description_id"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="From Date"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:id="@+id/trip_From_date"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trip Description"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:id="@+id/trip_description_id"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/trip_TO_Date"
+        <LinearLayout
+            android:padding="5dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="To Date"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From Date"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:id="@+id/trip_From_date"/>
+
+            <TextView
+                android:layout_marginRight="40dp"
+                android:gravity="right"
+                android:id="@+id/trip_TO_Date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To Date"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+               android:padding="10dp"
+                android:layout_margin="8dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/memoriesTvClickId"
+                    android:textColor="@color/mainColor"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="Memories"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/walletTvClickId"
+                    android:textColor="@color/mainColor"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:text="Wallet"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/deleteEventTvClickId"
+                    android:textColor="@color/mainColor"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Delete" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
-</LinearLayout>
+
+</android.support.v7.widget.CardView>

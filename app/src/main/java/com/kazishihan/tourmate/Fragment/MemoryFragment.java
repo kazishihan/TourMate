@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kazishihan.tourmate.BottomSheet_AddMemory;
-import com.kazishihan.tourmate.BottomSheet_AddTrip;
 import com.kazishihan.tourmate.R;
 
 /**
@@ -18,7 +16,7 @@ import com.kazishihan.tourmate.R;
 public class MemoryFragment extends Fragment {
 
     private FloatingActionButton floatingActionButtonMemory;
-    private BottomSheet_AddMemory bottomSheet_addMemory;
+   // private BottomSheet_AddMemory bottomSheet_addMemory;
 
 
     public MemoryFragment() {
@@ -35,15 +33,15 @@ public class MemoryFragment extends Fragment {
          floatingActionButtonMemory = view.findViewById(R.id.fabMemory);
 
 
-         floatingActionButtonMemory.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
+        floatingActionButtonMemory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                 bottomSheet_addMemory = new BottomSheet_AddMemory();
-                 bottomSheet_addMemory.show(getFragmentManager(),"BottomSheet_addmemory");
+                //  bottomSheet_addMemory = new BottomSheet_AddMemory();
+                //  bottomSheet_addMemory.show(getFragmentManager(),"BottomSheet_addmemory");
                 // .show(getFragmentManager(), "BootmSheet_addtrip");
-             }
-         });
+            }
+        });
 
 
          return view;

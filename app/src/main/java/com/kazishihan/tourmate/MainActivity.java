@@ -64,19 +64,19 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+//
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void loaddefaultfragment() {
-//        TripFragment tripFragment  = new TripFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.frame_layout_id,tripFragment);
-//        fragmentTransaction.commit();
+        TripFragment tripFragment  = new TripFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout_id,tripFragment);
+        fragmentTransaction.commit();
     }
 
 //    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -117,42 +117,42 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.tripNavID:
-
-                    TripFragment tripFragment  = new TripFragment();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_layout_id,tripFragment);
-                    fragmentTransaction.commit();
-
-                    return true;
-                case R.id.memoriesNavID:
-
-                    MemoryFragment memoryFragment  = new MemoryFragment();
-                    FragmentManager fragmentManager2 = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                    fragmentTransaction2.replace(R.id.frame_layout_id,memoryFragment);
-                    fragmentTransaction2.commit();
-
-                    return true;
-
-                case R.id.walletNavID:
-                    WalletFragment walletFragment  = new WalletFragment();
-        FragmentManager fragmentManager3 = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
-        fragmentTransaction3.replace(R.id.frame_layout_id,walletFragment);
-        fragmentTransaction3.commit();
-
-                    return true;
-            }
-            return false;
-        }
-    };
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//            switch (item.getItemId()) {
+//                case R.id.tripNavID:
+//
+//                    TripFragment tripFragment  = new TripFragment();
+//                    FragmentManager fragmentManager = getSupportFragmentManager();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.frame_layout_id,tripFragment);
+//                    fragmentTransaction.commit();
+//
+//                    return true;
+//                case R.id.memoriesNavID:
+//
+//                    MemoryFragment memoryFragment  = new MemoryFragment();
+//                    FragmentManager fragmentManager2 = getSupportFragmentManager();
+//                    FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+//                    fragmentTransaction2.replace(R.id.frame_layout_id,memoryFragment);
+//                    fragmentTransaction2.commit();
+//
+//                    return true;
+//
+//                case R.id.walletNavID:
+//                    WalletFragment walletFragment  = new WalletFragment();
+//        FragmentManager fragmentManager3 = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+//        fragmentTransaction3.replace(R.id.frame_layout_id,walletFragment);
+//        fragmentTransaction3.commit();
+//
+//                    return true;
+//            }
+//            return false;
+//        }
+//    };
 
 
     @Override

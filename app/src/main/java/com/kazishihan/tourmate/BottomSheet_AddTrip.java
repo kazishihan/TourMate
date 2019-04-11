@@ -41,9 +41,11 @@ import com.kazishihan.tourmate.Classes.IndividualTrip;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
@@ -54,12 +56,14 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
     private TextView DateTv, toDateTv;
     private long selectedFromDateinMS;
     private long selectedToDateinMS;
-    private String spinnerdata;
+
     private RelativeLayout datePicker, timePicker;
-    String addTripFromDate, addTripToDate, postrandomname;
+    String addTripFromDate, addTripToDate;
     private FirebaseAuth firebaseAuth;
     String currentuser;
-    private DatabaseReference databaseReference, postRef;
+    private FirebaseDatabase firebaseDatabase;
+
+    private List<IndividualTrip> tripList;
 
 
     @Nullable
@@ -67,6 +71,7 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.bottom_add_trip, container, false);
 
+        tripList = new ArrayList<>();
         datePicker = view.findViewById(R.id.datepicklayoutid);
         timePicker = view.findViewById(R.id.todatepicklayoutid);
         DateTv = view.findViewById(R.id.opendatepickerTvID);
@@ -75,10 +80,13 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
         addTripDiscription = view.findViewById(R.id.tripDescriptionId);
         addtrip = view.findViewById(R.id.addTrip);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("UserList");
-        postRef = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events");
+        //databaseReference = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").push();
+        //postRef = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events");
 
         addtrip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +101,9 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
                 } else if (tripDescription.equals("")) {
                     Toast.makeText(getContext(), "Please Enter a description for your event", Toast.LENGTH_SHORT).show();
                 } else {
-                    InsertDatatoDatabase(triptitle, tripDescription, addTripToDate, addTripFromDate);
+                    saveToDB(new IndividualTrip(triptitle,tripDescription,addTripFromDate,addTripToDate));
                 }
+
 
             }
         });
@@ -120,25 +129,24 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
         return view;
     }
 
-    private void InsertDatatoDatabase(final String triptitle, final String tripDescription, final String addTripToDate, final String addTripFromDate) {
-        final IndividualTrip individualTrip = new IndividualTrip();
-        individualTrip.setEvent_Description(tripDescription);
-        individualTrip.setEvent_Name(triptitle);
-        individualTrip.setFrom_Date(addTripFromDate);
-        individualTrip.setTo_Date(addTripToDate);
 
-                postRef.child(currentuser + postrandomname).setValue(individualTrip)
-                        .addOnCompleteListener(new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), "Event Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        
-    });
+    private void saveToDB(IndividualTrip individualTrip) {
+
+
+        DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser);
+
+        String userId = userDB.push().getKey();
+        individualTrip.setTrip_id(userId);
+
+        userDB.child("Events").child(userId).setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
 

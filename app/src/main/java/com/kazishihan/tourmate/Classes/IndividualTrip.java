@@ -1,43 +1,68 @@
 package com.kazishihan.tourmate.Classes;
 
-import java.util.Map;
+public class IndividualTrip {
 
-public class IndividualTrip{
-    public String Event_Description;
-    public String Event_Name;
-    public String From_Date;
-    public String To_Date;
+    private String trip_id;
+    private String trip_Name;
+    private String trip_Description;
+    private String trip_fromDate;
+    private String trip_toDate;
 
-
-    public String getEvent_Description() {
-        return Event_Description;
+    public IndividualTrip() {
     }
 
-    public void setEvent_Description(String Event_Description) {
-        Event_Description = Event_Description;
+    public IndividualTrip(String trip_id, String trip_Name, String trip_Description, String trip_fromDate, String trip_toDate) {
+        this.trip_id = trip_id;
+        this.trip_Name = trip_Name;
+        this.trip_Description = trip_Description;
+        this.trip_fromDate = trip_fromDate;
+        this.trip_toDate = trip_toDate;
     }
 
-    public String getEvent_Name() {
-        return Event_Name;
+    public IndividualTrip(String trip_Name, String trip_Description, String trip_fromDate, String trip_toDate) {
+        this.trip_Name = trip_Name;
+        this.trip_Description = trip_Description;
+        this.trip_fromDate = trip_fromDate;
+        this.trip_toDate = trip_toDate;
     }
 
-    public void setEvent_Name(String event_Name) {
-        Event_Name = event_Name;
+    public String getTrip_id() {
+        return trip_id;
     }
 
-    public String getFrom_Date() {
-        return From_Date;
+    public void setTrip_id(String trip_id) {
+        this.trip_id = trip_id;
     }
 
-    public void setFrom_Date(String from_Date) {
-        From_Date = from_Date;
+    public String getTrip_Name() {
+        return trip_Name;
     }
 
-    public String getTo_Date() {
-        return To_Date;
+    public void setTrip_Name(String trip_Name) {
+        this.trip_Name = trip_Name;
     }
 
-    public void setTo_Date(String to_Date) {
-        To_Date = to_Date;
+    public String getTrip_Description() {
+        return trip_Description;
+    }
+
+    public void setTrip_Description(String trip_Description) {
+        this.trip_Description = trip_Description;
+    }
+
+    public String getTrip_fromDate() {
+        return trip_fromDate;
+    }
+
+    public void setTrip_fromDate(String trip_fromDate) {
+        this.trip_fromDate = trip_fromDate;
+    }
+
+    public String getTrip_toDate() {
+        return trip_toDate;
+    }
+
+    public void setTrip_toDate(String trip_toDate) {
+        this.trip_toDate = trip_toDate;
     }
 }
