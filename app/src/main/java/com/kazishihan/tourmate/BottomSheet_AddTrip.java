@@ -50,7 +50,7 @@ import java.util.Map;
 
 public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
 
-    private EditText addTriptitle, addTripDiscription;
+    private EditText addTriptitle, addTripDiscription,addTripStartPlace,addTripBudget;
     private Button addtrip;
     private ImageView fromDateIv, toDateIv;
     private TextView DateTv, toDateTv;
@@ -79,6 +79,9 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
         addTriptitle = view.findViewById(R.id.tripNameId);
         addTripDiscription = view.findViewById(R.id.tripDescriptionId);
         addtrip = view.findViewById(R.id.addTrip);
+        addTripStartPlace = view.findViewById(R.id.tripStartingPlaceEtId);
+        addTripBudget=view.findViewById(R.id.tripBudgetEtId);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -95,13 +98,15 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
                 String tripDescription = addTripDiscription.getText().toString();
                 addTripFromDate = String.valueOf(selectedFromDateinMS);
                 addTripToDate = String.valueOf(selectedToDateinMS);
+                String tripStart = addTripStartPlace.getText().toString();
+                String tripBudget=addTripBudget.getText().toString();
 
                 if (triptitle.equals("")) {
                     Toast.makeText(getContext(), "Please Enter your Event Title", Toast.LENGTH_SHORT).show();
                 } else if (tripDescription.equals("")) {
                     Toast.makeText(getContext(), "Please Enter a description for your event", Toast.LENGTH_SHORT).show();
                 } else {
-                    saveToDB(new IndividualTrip(triptitle,tripDescription,addTripFromDate,addTripToDate));
+                    saveToDB(new IndividualTrip(triptitle,tripDescription,addTripFromDate,addTripToDate,tripStart,tripBudget));
                 }
 
 

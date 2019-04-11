@@ -56,7 +56,7 @@
             android:hint="Starting Place"
             android:singleLine="true"
             android:imeOptions="actionNext"
-            android:id="@+id/tripStartingPlaceId"
+            android:id="@+id/tripStartingPlaceEtId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -74,7 +74,7 @@
             android:hint="Estimated Budjet"
             android:singleLine="true"
             android:imeOptions="actionNext"
-            android:id="@+id/tripBudgetId"
+            android:id="@+id/tripBudgetEtId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
