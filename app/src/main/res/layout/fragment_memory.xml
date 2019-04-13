@@ -5,17 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.MemoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Memory" />
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryRecyclerView">
 
-
+    </android.support.v7.widget.RecyclerView>
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabMemory"
+        android:id="@+id/fab"
         android:src="@drawable/camera_icon"
         android:tint="@color/white"
         android:backgroundTint="@color/mainColor"
