@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location lastlocation;
     private Marker currentLocationmMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
-    int PROXIMITY_RADIUS = 10000;
+    int PROXIMITY_RADIUS = 1000;
     double latitude,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,35 +153,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String location = tf_location.getText().toString();
                 List<Address> addressList;
 
-
-                if(!location.equals(""))
-                {
-                    Geocoder geocoder = new Geocoder(this);
-
-                    try {
-                        addressList = geocoder.getFromLocationName(location, 5);
-
-                        if(addressList != null)
-                        {
-                            for(int i = 0;i<addressList.size();i++)
-                            {
-                                LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
-                                MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.position(latLng);
-                                markerOptions.title(location);
-                                mMap.addMarker(markerOptions);
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                mMap.animateCamera(CameraUpdateFactory.zoomTo(24));
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
+//
+//                if(!location.equals(""))
+//                {
+//                    Geocoder geocoder = new Geocoder(this);
+//
+//                    try {
+//                        addressList = geocoder.getFromLocationName(location, 5);
+//
+//                        if(addressList != null)
+//                        {
+//                            for(int i = 0;i<addressList.size();i++)
+//                            {
+//                                LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
+//                                MarkerOptions markerOptions = new MarkerOptions();
+//                                markerOptions.position(latLng);
+//                                markerOptions.title(location);
+//                                mMap.addMarker(markerOptions);
+//                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                                mMap.animateCamera(CameraUpdateFactory.zoomTo(24));
+//                            }
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                break;
             case R.id.B_hopistals:
                 mMap.clear();
-                String hospital = "hospital";
+                String hospital ="atm";
                 String url = getUrl(latitude, longitude, hospital);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
@@ -193,7 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.B_schools:
                 mMap.clear();
-                String school = "school";
+                String school = "bank";
                 url = getUrl(latitude, longitude, school);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
@@ -224,7 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
         googlePlaceUrl.append("&type="+nearbyPlace);
         googlePlaceUrl.append("&sensor=true");
-        googlePlaceUrl.append("&key="+"AIzaSyCw-hHEhTvVReOTU-G0Z6Jl3BZy9DL9AxE");
+        googlePlaceUrl.append("&key="+"AIzaSyAGKJfnsFM5lV-LP0KTw5RhjlRbNqwi2Pc");
 
         Log.d("MapsActivity", "url = "+googlePlaceUrl.toString());
 
