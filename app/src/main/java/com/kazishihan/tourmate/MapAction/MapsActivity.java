@@ -181,13 +181,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                break;
             case R.id.B_hopistals:
                 mMap.clear();
-                String hospital ="atm";
-                String url = getUrl(latitude, longitude, hospital);
+                String atm ="atm";
+                String url = getUrl(latitude, longitude, atm);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
                 getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, "Showing Nearby Atm", Toast.LENGTH_SHORT).show();
                 break;
 
 
@@ -199,7 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[1] = url;
 
                 getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, "Showing Nearby Bank", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_restaurants:
                 mMap.clear();
@@ -212,6 +212,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, "Showing Nearby Restaurants", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_to:
+                mMap.clear();
+                String hospital = "bank";
+                url = getUrl(latitude, longitude, hospital);
+                dataTransfer[0] = mMap;
+                dataTransfer[1] = url;
+
+                getNearbyPlacesData.execute(dataTransfer);
+                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 

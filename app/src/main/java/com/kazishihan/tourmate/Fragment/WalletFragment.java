@@ -80,6 +80,7 @@ public class WalletFragment extends Fragment {
 
         floatingActionButton = view.findViewById(R.id.floatingbtnId)  ;
 
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +105,9 @@ public class WalletFragment extends Fragment {
                         expenseList.add(expense);
 
                     }
+
                     expenseAdapter = new ExpenseAdapter(expenseList,getContext());
+                    expenseAdapter.setEventId(eventId);
                     recyclerView.setAdapter(expenseAdapter);
                     expenseAdapter.notifyDataSetChanged();
                 }else {

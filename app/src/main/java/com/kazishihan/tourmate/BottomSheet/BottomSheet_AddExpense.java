@@ -37,12 +37,9 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
    private Button addExpensebtnl;
 
 
-    private ImageView uploadimae;
-    private EditText memories_title, memories_desc;
-    private Button uploadMemory;
-    private static final int Gallery_Pick = 1;
-    private Uri ImageUri;
-    private String savecurrentdate, savecurrenttime, postrandomname, downloadurl, currentuser;
+
+
+    private String currentuser;
     private StorageReference postimagesreference;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference, postRef;
