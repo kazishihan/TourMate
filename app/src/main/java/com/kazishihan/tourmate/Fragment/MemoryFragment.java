@@ -34,7 +34,7 @@ public class MemoryFragment extends Fragment {
 
     private FloatingActionButton floatingActionButtonMemory;
     private BottomSheet_AddMemory bottomSheet_addMemory;
-   // private BottomSheet_AddMemory bottomSheet_addMemory;
+    // private BottomSheet_AddMemory bottomSheet_addMemory;
 
 
     private DatabaseReference database;
@@ -56,7 +56,7 @@ public class MemoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         View view=inflater.inflate(R.layout.fragment_memory, container, false);
+        View view = inflater.inflate(R.layout.fragment_memory, container, false);
 
         // floatingActionButtonMemory = view.findViewById(R.id.fabMemory);
         eventId = getArguments().getString("message");
@@ -86,7 +86,7 @@ public class MemoryFragment extends Fragment {
         floatingActionButtonMemory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                                bottomSheet_addMemory = new BottomSheet_AddMemory();
+                bottomSheet_addMemory = new BottomSheet_AddMemory();
                 bottomSheet_addMemory.setcID(eventId);
                 bottomSheet_addMemory.show(getFragmentManager(), "bottomSheetImageDialog");
 
@@ -94,38 +94,34 @@ public class MemoryFragment extends Fragment {
         });
 
 
-
-
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(eventId);
         database.child("Memories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     memorylist.clear();
-                    for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
                         MemoryClass memoryClass = data.getValue(MemoryClass.class);
                         memorylist.add(memoryClass);
 
                     }
-                    Toast.makeText(getContext(), ""+memorylist.size(), Toast.LENGTH_SHORT).show();
-                    momentAdapter = new MomentAdapter(memorylist,getContext());
+                    Toast.makeText(getContext(), "" + memorylist.size(), Toast.LENGTH_SHORT).show();
+                    momentAdapter = new MomentAdapter(memorylist, getContext());
                     memoryRecycler.setAdapter(momentAdapter);
                     momentAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     Toast.makeText(getContext(), "Empty database", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
-
-
-         return view;
+        return view;
     }
 
 }

@@ -34,9 +34,7 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
     private EditText expenseTypeEt;
     private EditText expenseAmountEt;
     private String expenseTime;
-   private Button addExpensebtnl;
-
-
+    private Button addExpensebtnl;
 
 
     private String currentuser;
@@ -45,9 +43,6 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
     private DatabaseReference databaseReference, postRef;
     private FirebaseDatabase firebaseDatabase;
     DatabaseReference userDB;
-
-
-
 
 
     public void setEventId(String eventId) {
@@ -59,8 +54,8 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.bottom_add_expense, container, false);
 
-         expenseTypeEt = view.findViewById(R.id.expenseTypeIdListEtId);
-         expenseAmountEt = view.findViewById(R.id.expenseAmountnListEtId);
+        expenseTypeEt = view.findViewById(R.id.expenseTypeIdListEtId);
+        expenseAmountEt = view.findViewById(R.id.expenseAmountnListEtId);
         addExpensebtnl = view.findViewById(R.id.addExensebtnId);
 
 
@@ -69,10 +64,6 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser().getUid();
-
-
-
-
 
 
         Calendar callForDate = Calendar.getInstance();
@@ -87,24 +78,21 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
                 String expenseType = expenseTypeEt.getText().toString();
                 String expenseAmount = expenseAmountEt.getText().toString();
 
-                if(expenseType==null)
-                {
+                if (expenseType == null) {
                     Toast.makeText(getContext(), "enter expense Type", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(expenseAmount==null)
-                {
+                if (expenseAmount == null) {
                     Toast.makeText(getContext(), "enter expense amount", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                saveToDB(new Expense(expenseType,expenseAmount,expenseTime));
+                saveToDB(new Expense(expenseType, expenseAmount, expenseTime));
 
 
             }
         });
-
 
 
         return view;

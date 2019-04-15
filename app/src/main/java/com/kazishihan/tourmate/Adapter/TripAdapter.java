@@ -194,13 +194,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
                                 break;
                             case R.id.detailsTripMenu:
-                                
+
 
                         }
-
-
-
-
 
 
                         return false;

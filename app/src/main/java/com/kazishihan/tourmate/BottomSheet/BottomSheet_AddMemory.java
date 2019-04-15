@@ -75,12 +75,12 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
         currentuser = firebaseAuth.getCurrentUser().getUid();
 
 
-       // cID= getIntent().getStringExtra("curre");
+        // cID= getIntent().getStringExtra("curre");
 
 
         //cID= eventIdClass.getEventId();
 
-        Toast.makeText(getContext(), ""+cID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "" + cID, Toast.LENGTH_SHORT).show();
         uploadimae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +150,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             downloadurl = uri.toString();
-                            savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl,savecurrentdate,savecurrenttime));
+                            savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl, savecurrentdate, savecurrenttime));
                         }
                     });
 
@@ -172,7 +172,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                   // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
                 }
             }
         });

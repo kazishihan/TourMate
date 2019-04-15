@@ -70,30 +70,28 @@ public class TripFragment extends Fragment {
         });
 
 
-
-
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
         database.child("Events").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     list.clear();
-                    for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
                         IndividualTrip trip = data.getValue(IndividualTrip.class);
                         list.add(trip);
 
                     }
-                    tripAdapter = new TripAdapter(list,getContext());
+                    tripAdapter = new TripAdapter(list, getContext());
                     triprecyclerView.setAdapter(tripAdapter);
                     tripAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -47,7 +47,7 @@ public class WalletFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     private List<Expense> expenseList;
-   private ExpenseAdapter expenseAdapter;
+    private ExpenseAdapter expenseAdapter;
     //private Context context;
     private FirebaseAuth firebaseAuth;
     private String currentuser;
@@ -64,7 +64,6 @@ public class WalletFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wallet, container, false);
 
 
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser().getUid();
@@ -76,9 +75,9 @@ public class WalletFragment extends Fragment {
 
 
         eventId = getArguments().getString("message");
-        Toast.makeText(getContext(), "get"+eventId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "get" + eventId, Toast.LENGTH_SHORT).show();
 
-        floatingActionButton = view.findViewById(R.id.floatingbtnId)  ;
+        floatingActionButton = view.findViewById(R.id.floatingbtnId);
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -92,34 +91,33 @@ public class WalletFragment extends Fragment {
         });
 
 
-
-
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(eventId);
         database.child("Wallet").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     expenseList.clear();
-                    for (DataSnapshot data: dataSnapshot.getChildren()) {
-                        Expense expense= data.getValue(Expense.class);
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Expense expense = data.getValue(Expense.class);
                         expenseList.add(expense);
 
                     }
 
-                    expenseAdapter = new ExpenseAdapter(expenseList,getContext());
+                    expenseAdapter = new ExpenseAdapter(expenseList, getContext());
                     expenseAdapter.setEventId(eventId);
                     recyclerView.setAdapter(expenseAdapter);
                     expenseAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
         return view;
     }
