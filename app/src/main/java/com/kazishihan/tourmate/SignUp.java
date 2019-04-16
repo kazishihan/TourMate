@@ -2,6 +2,7 @@ package com.kazishihan.tourmate;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class SignUp extends AppCompatActivity {
 
@@ -28,6 +31,10 @@ public class SignUp extends AppCompatActivity {
     private ImageView imageView;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    private StorageReference postimagesreference;
+
+    private static final int Gallery_Pick = 1;
+    private Uri ImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,8 @@ public class SignUp extends AppCompatActivity {
         imageView = findViewById(R.id.cameraSignUpIvId);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        postimagesreference = FirebaseStorage.getInstance().getReference();
 
 
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +92,13 @@ public class SignUp extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGalary();
             }
         });
 
@@ -135,18 +151,24 @@ public class SignUp extends AppCompatActivity {
     }
 
 
+    private void openGalary() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, Gallery_Pick);
+    }
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-
-        if (data != null) {
-            if (requestCode == 0) {
-
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                imageView.setImageBitmap(bitmap);
-
-            }
-
+        if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
+            ImageUri = data.getData();
+            imageView.setImageURI(ImageUri);
         }
     }
+
+
+
 }

@@ -60,7 +60,7 @@ public class WalletFragment extends Fragment {
 
     int expenditure;
     int reducedBudget = 0;
-    int budget ;
+    int budget;
     int consumed;
 
 
@@ -98,10 +98,6 @@ public class WalletFragment extends Fragment {
         CreateProgressBar();
 
 
-
-
-
-
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(eventId);
         database.child("Wallet").addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,16 +126,15 @@ public class WalletFragment extends Fragment {
         });
 
 
-
         dataB = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
         dataB.child("Events").child(eventId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                budget=  Integer.valueOf(dataSnapshot.getValue(IndividualTrip.class).getTrip_Budget());
+                budget = Integer.valueOf(dataSnapshot.getValue(IndividualTrip.class).getTrip_Budget());
 
-                Toast.makeText(getContext(), "Budget"+budget, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
 
-                cBudget=budget;
+                cBudget = budget;
             }
 
             @Override
@@ -155,19 +150,19 @@ public class WalletFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 int total = 0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     int number = Integer.valueOf(ds.getValue(Expense.class).getExpenseAmount());
                     total = total + number;
                 }
 
-             //   Toast.makeText(getContext(), "Total Value"+total, Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(getContext(), "Total Value"+total, Toast.LENGTH_SHORT).show();
                 expenditure = total;
-               // cExpense = expenditure;
+                // cExpense = expenditure;
 
 
                 ShowProgressBar();
 
-                checkBalance(total,budget);
+                checkBalance(total, budget);
             }
 
             @Override
@@ -177,46 +172,40 @@ public class WalletFragment extends Fragment {
         });
 
 
-       // Toast.makeText(getContext(), "aaaaaa"+expenditure, Toast.LENGTH_SHORT).show();
-
+        // Toast.makeText(getContext(), "aaaaaa"+expenditure, Toast.LENGTH_SHORT).show();
 
 
         return view;
     }
 
-    private void checkBalance(int total,int bud) {
-        Toast.makeText(getContext(), "bbbbbbbb"+total, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "cccccc"+bud, Toast.LENGTH_SHORT).show();
+    private void checkBalance(int total, int bud) {
+        Toast.makeText(getContext(), "bbbbbbbb" + total, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "cccccc" + bud, Toast.LENGTH_SHORT).show();
 
 
-
-        if(bud==total) {
+        if (bud > total) {
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
+
+                    floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            bottomSheet_addExpense = new BottomSheet_AddExpense();
+                            bottomSheet_addExpense.setEventId(eventId);
+                            bottomSheet_addExpense.show(getFragmentManager(), "bottomSheetImageDialog");
+
+                        }
+                    });
                 }
             });
-        }
-
-        else
-        {
-
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    bottomSheet_addExpense = new BottomSheet_AddExpense();
-                    bottomSheet_addExpense.setEventId(eventId);
-                    bottomSheet_addExpense.show(getFragmentManager(), "bottomSheetImageDialog");
-
-                }
-            });
+        } else {
 
 
         }
-
 
 
     }
@@ -224,20 +213,19 @@ public class WalletFragment extends Fragment {
 
     private void ShowProgressBar() {
 
-        if(expenditure >=0)
-        {
+        if (expenditure >= 0) {
             calculateProgress();
-        }
-        else Toast.makeText(getContext(), "Sorry! No Ammount is remainnig.", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getContext(), "Sorry! No Ammount is remainnig.", Toast.LENGTH_SHORT).show();
     }
 
     private void calculateProgress() {
-        if(expenditure >= 0) {
+        if (expenditure >= 0) {
 
             consumed = (expenditure * 100) / budget;
             progressBar.setProgress(consumed);
 
-        }else Toast.makeText(getContext(), "please enter some ammount", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(getContext(), "please enter some ammount", Toast.LENGTH_SHORT).show();
     }
 
     private void CreateProgressBar() {

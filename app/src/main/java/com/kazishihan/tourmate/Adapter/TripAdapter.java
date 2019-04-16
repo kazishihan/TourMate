@@ -30,6 +30,8 @@ import com.kazishihan.tourmate.Fragment.MemoryFragment;
 import com.kazishihan.tourmate.Fragment.WalletFragment;
 import com.kazishihan.tourmate.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
@@ -59,7 +61,18 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         final IndividualTrip mylist = individualTrips.get(position);
         viewHolder.trip_title.setText("" + mylist.getTrip_Name());
         viewHolder.trip_description.setText("" + mylist.getTrip_Description());
-        viewHolder.fromdate.setText("" + mylist.getTrip_fromDate());
+       // viewHolder.fromdate.setText("" + mylist.getTrip_fromDate());
+
+        SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMMM yyyy");
+
+       Long longfrmDate=Long.valueOf( mylist.getTrip_fromDate());
+        Date date = new Date();
+        date.setTime(longfrmDate);
+        viewHolder.fromdate.setText(dateSDF.format(date));
+
+
+
+
         //viewHolder.todate.setText("" + mylist.getTrip_toDate());
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +7,88 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
+
+    <LinearLayout
+        android:id="@+id/linlayID1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainColor"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:background="@color/mainColor"
+            android:id="@+id/relativelayout1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginLeft="65dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/fromDatePickDashboadLayoutId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:tint="@color/white"
+                    android:id="@+id/fromDateicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/datecalender" />
+
+                <TextView
+                    android:id="@+id/fromDateTV"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="11dp"
+                    android:text="From Date" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="75dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/toDatePickDashboardID"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:tint="@color/white"
+                    android:id="@+id/toDateicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/datecalender" />
+
+                <TextView
+                    android:id="@+id/toDateTV"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="11dp"
+                    android:text="To Date" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/linlayID1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/trip_recycler_view">
@@ -19,6 +100,8 @@
         android:id="@+id/fab"
         android:src="@drawable/plusicon"
         android:tint="@color/white"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:backgroundTint="@color/mainColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,4 +110,4 @@
         android:layout_marginRight="20dp"/>
 
 
-</FrameLayout>
+</RelativeLayout>
