@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,6 +56,7 @@ public class WalletFragment extends Fragment {
     private String currentuser;
     //int total;
 
+    private TextView currentBalanceTvId;
 
     ProgressBar progressBar;
 
@@ -83,6 +85,7 @@ public class WalletFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser().getUid();
         expenseList = new ArrayList<>();
+        currentBalanceTvId = view.findViewById(R.id.currenBalanceDisplayTvId);
 
 
         recyclerView = view.findViewById(R.id.recyclerviewExpenseId);
@@ -182,8 +185,13 @@ public class WalletFragment extends Fragment {
         Toast.makeText(getContext(), "bbbbbbbb" + total, Toast.LENGTH_SHORT).show();
         Toast.makeText(getContext(), "cccccc" + bud, Toast.LENGTH_SHORT).show();
 
+        int cBalance = bud-total;
+        currentBalanceTvId.setText(String.valueOf(cBalance)+ "BDT");
 
-        if (bud > total) {
+
+
+
+        if (cBalance>0) {
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
