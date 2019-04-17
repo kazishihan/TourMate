@@ -26,7 +26,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
     @Override
     public ViewGroup onCreateViewHolder(@NonNull android.view.ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weither_items,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weither_items, viewGroup, false);
 
         return new ViewGroup(view);
     }
@@ -37,10 +37,10 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
                 .append(weatherResult.getList().get(i).getWeather().get(0).getIcon())
                 .append(".png").toString()).into(viewGroup.weitherIcon);
 
-        viewGroup.weitherDate.setText("Date: "+weatherResult.getList().get(i).getDt_txt());
-        viewGroup.weitherDescription.setText("Status: "+weatherResult.getList().get(i).getWeather().get(0).getDescription());
-        viewGroup.weitherTemp.setText(("Temp :"+weatherResult.getList().get(i).getMain().getTemp()+" °C"));
-        viewGroup.weitherWind.setText("Wind :"+weatherResult.getList().get(i).getWind().getSpeed()+" km/h");
+        viewGroup.weitherDate.setText("Date: " + weatherResult.getList().get(i).getDt_txt());
+        viewGroup.weitherDescription.setText("Status: " + weatherResult.getList().get(i).getWeather().get(0).getDescription());
+        viewGroup.weitherTemp.setText(("Temp :" + weatherResult.getList().get(i).getMain().getTemp() + " °C"));
+        viewGroup.weitherWind.setText("Wind :" + weatherResult.getList().get(i).getWind().getSpeed() + " km/h");
         //viewGroup.weitherHumidity.setText(("Humidity :"+weatherResult.getList().get(i).getMain().getHumidity()+" %"));
     }
 
@@ -51,7 +51,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
 
     public class ViewGroup extends RecyclerView.ViewHolder {
         private ImageView weitherIcon;
-        private TextView weitherDate,weitherTemp,weitherWind,weitherHumidity,weitherDescription;
+        private TextView weitherDate, weitherTemp, weitherWind, weitherHumidity, weitherDescription;
 
         public ViewGroup(@NonNull View itemView) {
             super(itemView);
@@ -67,3 +67,4 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
         }
     }
 }
+
