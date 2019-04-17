@@ -17,18 +17,46 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:progressTint="@color/colorPrimary"
+            android:progressTint="@color/white"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"/>
 
         <TextView
+            android:id="@+id/expensePersentageTvId"
+            android:textColor="@color/white"
+            android:text="5%"
+            android:layout_marginLeft="22dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/currenBalanceDisplayTvId"
             android:textColor="@color/white"
-            android:textSize="50sp"
+            android:textSize="40sp"
             android:layout_gravity="center"
             android:text="1000 BDT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="22dp"
+            android:id="@+id/totalBudgetTvId"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Total budget:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="3dp"
+            android:id="@+id/totalExpenseTvId"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Total Expense:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

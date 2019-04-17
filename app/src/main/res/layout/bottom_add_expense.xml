@@ -33,7 +33,8 @@
         <EditText
             android:hint="Expense Amount"
             android:singleLine="true"
-            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:imeOptions="actionDone"
             android:id="@+id/expenseAmountnListEtId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
