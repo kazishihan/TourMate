@@ -110,7 +110,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                 viewHolder.dayleftTv.setText(days + " days left");
         }
         else
+        {
+            viewHolder.dayleftTv.setTextColor(context.getResources().getColor(R.color.darkRed));
             viewHolder.dayleftTv.setText("Expired");
+
+        }
 
 
 

@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Day left"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/white"
                     android:id="@+id/trip_day_left"/>
 
@@ -130,7 +130,7 @@
 
                 <TextView
                     android:id="@+id/deleteEventTvClickId"
-                    android:textColor="@color/mainColor"
+                    android:textColor="@color/darkRed"
                     android:gravity="center"
                     android:textSize="18sp"
                     android:layout_width="wrap_content"
