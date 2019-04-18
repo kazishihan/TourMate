@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherHumidity;
+    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv;
     private ImageView currentWeatherIcon;
 
     private RecyclerView recyclerView;
@@ -53,7 +53,8 @@ public class WeatherActivity extends AppCompatActivity {
         currentWeatherIcon = findViewById(R.id.weatherCurrentIconIvId);
         currentWeathertemp = findViewById(R.id.tempCurrentWeitherTvId);
         currentWeatherWind = findViewById(R.id.windCurrentWeitherTvId);
-        currentWeatherHumidity = findViewById(R.id.humidityCurrentWeitherTvId);
+        //currentWeatherHumidity = findViewById(R.id.humidityCurrentWeitherTvId);
+        currentWeatherLocatonTv = findViewById(R.id.cityStatusCurrentTvId);
 
         weatherResult = new WeatherResult();
         recyclerView = findViewById(R.id.weatherRecyclerViewId);
@@ -121,8 +122,9 @@ public class WeatherActivity extends AppCompatActivity {
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
                             .append(weatherResult.getList().get(0).getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
-                    currentWeathertemp.setText("Temp: "+weatherResult.getList().get(0).getMain().getTemp()+" °C");
+                    currentWeathertemp.setText("   "+weatherResult.getList().get(0).getMain().getTemp()+"°C");
                     currentWeatherWind.setText("Wind :"+weatherResult.getList().get(0).getWind().getSpeed()+" km/h");
+                    currentWeatherLocatonTv.setText(""+weatherResult.getCity().getName());
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
                 }
             }

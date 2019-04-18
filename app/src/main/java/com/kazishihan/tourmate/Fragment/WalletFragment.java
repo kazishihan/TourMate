@@ -56,7 +56,7 @@ public class WalletFragment extends Fragment {
     private String currentuser;
     //int total;
 
-    private TextView currentBalanceTvId,totalBudgetTv,totalexpenseTv,expensePersentageTv;
+    private TextView currentBalanceTvId,expensePersentageTv,budExTv;
 
     ProgressBar progressBar;
 
@@ -86,9 +86,9 @@ public class WalletFragment extends Fragment {
         currentuser = firebaseAuth.getCurrentUser().getUid();
         expenseList = new ArrayList<>();
         currentBalanceTvId = view.findViewById(R.id.currenBalanceDisplayTvId);
-        totalBudgetTv = view.findViewById(R.id.totalBudgetTvId);
-        totalexpenseTv = view.findViewById(R.id.totalExpenseTvId);
+
         expensePersentageTv = view.findViewById(R.id.expensePersentageTvId);
+        budExTv = view.findViewById(R.id.budExTvId);
 
 
         recyclerView = view.findViewById(R.id.recyclerviewExpenseId);
@@ -185,16 +185,14 @@ public class WalletFragment extends Fragment {
     }
 
     private void checkBalance(int total, int bud) {
-        Toast.makeText(getContext(), "bbbbbbbb" + total, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "cccccc" + bud, Toast.LENGTH_SHORT).show();
-
 
         double consumed2 = (Double.valueOf(expenditure) * 100) / Double.valueOf(budget);
         expensePersentageTv.setText(String.valueOf(consumed2)+" %");
         int cBalance = bud-total;
         currentBalanceTvId.setText(String.valueOf(cBalance)+ " BDT");
-        totalBudgetTv.setText("Budget: "+bud+" BDT");
-        totalexpenseTv.setText("Total Expense: "+total+" BDT");
+//        totalBudgetTv.setText("Budget: "+bud+" BDT");
+//        totalexpenseTv.setText("Total Expense: "+total+" BDT");
+        budExTv.setText(total+"/"+bud);
 
 
 

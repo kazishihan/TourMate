@@ -30,9 +30,12 @@ import com.kazishihan.tourmate.Fragment.MemoryFragment;
 import com.kazishihan.tourmate.Fragment.WalletFragment;
 import com.kazishihan.tourmate.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     private List<IndividualTrip> individualTrips;
@@ -42,6 +45,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private String currentuser;
+
+    private long fromdateMs;
 
 
     public TripAdapter(List<IndividualTrip> individualTrips, Context context) {
@@ -63,11 +68,53 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         viewHolder.trip_description.setText("" + mylist.getTrip_Description());
        // viewHolder.fromdate.setText("" + mylist.getTrip_fromDate());
 
-        SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMM yyyy");
+       /// SimpleDateFormat dateSDF = new SimpleDateFormat("EEE, d MMM yyyy");
 
        Long longfrmDate=Long.valueOf( mylist.getTrip_fromDate());
-        Date date = new Date();
-        date.setTime(longfrmDate);
+       Date date = new Date();
+      //  date.setTime(longfrmDate);
+
+
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(calendar.YEAR);
+        int month = calendar.get(calendar.MONTH);
+        int day = calendar.get(calendar.DAY_OF_MONTH);
+        month = month + 1;
+        String selectedDate = year + "/" + month + "/" + day + " 23:59:59";
+
+        SimpleDateFormat dateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat dateSDFF = new SimpleDateFormat("dd MMM yyyy");
+
+
+        Date date1 = null;
+        try {
+            date1 = dateandTimeSDF.parse(selectedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        fromdateMs = date1.getTime();
+
+        if (longfrmDate > fromdateMs) {
+            long diff =longfrmDate -fromdateMs;
+           long days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            days = days+1;
+            if (days == 1) {
+                viewHolder.dayleftTv.setText(" Tomorrow");
+            }
+            else
+                viewHolder.dayleftTv.setText(days + " days left");
+        }
+        else
+            viewHolder.dayleftTv.setText("Expired");
+
+
+
+
         viewHolder.fromdate.setText(dateSDF.format(date));
 
 
@@ -235,7 +282,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView trip_title, trip_description, fromdate, todate, memoryEvent, walletEvent, deleteEvent;
+        private TextView trip_title, trip_description, fromdate, todate, memoryEvent, walletEvent, deleteEvent,dayleftTv;
         private ImageView popUpMenuBtn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -248,6 +295,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             walletEvent = itemView.findViewById(R.id.walletTvClickId);
             deleteEvent = itemView.findViewById(R.id.deleteEventTvClickId);
             popUpMenuBtn = itemView.findViewById(R.id.popupTripBtnIvId);
+            dayleftTv = itemView.findViewById(R.id.trip_day_left);
         }
     }
 }

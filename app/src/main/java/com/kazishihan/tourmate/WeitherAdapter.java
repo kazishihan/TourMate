@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.kazishihan.tourmate.Weither.WeatherResult;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGroup> {
 
     Context context;
@@ -37,10 +40,19 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
                 .append(weatherResult.getList().get(i).getWeather().get(0).getIcon())
                 .append(".png").toString()).into(viewGroup.weitherIcon);
 
-        viewGroup.weitherDate.setText("Date: " + weatherResult.getList().get(i).getDt_txt());
-        viewGroup.weitherDescription.setText("Status: " + weatherResult.getList().get(i).getWeather().get(0).getDescription());
-        viewGroup.weitherTemp.setText(("Temp :" + weatherResult.getList().get(i).getMain().getTemp() + " °C"));
-        viewGroup.weitherWind.setText("Wind :" + weatherResult.getList().get(i).getWind().getSpeed() + " km/h");
+        SimpleDateFormat dateandTimeSDF = new SimpleDateFormat("dd MMMM yyyy");
+
+        Date date = new Date();
+        date.setDate((weatherResult.getList().get(i).getDt()));
+        viewGroup.weitherDate.setText("Date   : "+weatherResult.getList().get(i).getDt_txt());
+
+//        viewGroup.weitherDate.setText("Date   : " + weatherResult.getList().get(i).getDt());
+
+
+        viewGroup.weitherDescription.setText("Status : " + weatherResult.getList().get(i).getWeather().get(0).getDescription());
+        viewGroup.weitherTemp.setText(("Temp  : " + weatherResult.getList().get(i).getMain().getTemp() + " °C"));
+        viewGroup.weitherWind.setText("Wind : " + weatherResult.getList().get(i).getWind().getSpeed() + " km/h");
+        //viewGroup.weatherLoactionTv.setText(""+weatherResult.getCity().getCountry());
         //viewGroup.weitherHumidity.setText(("Humidity :"+weatherResult.getList().get(i).getMain().getHumidity()+" %"));
     }
 
@@ -51,7 +63,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
 
     public class ViewGroup extends RecyclerView.ViewHolder {
         private ImageView weitherIcon;
-        private TextView weitherDate, weitherTemp, weitherWind, weitherHumidity, weitherDescription;
+        private TextView weitherDate, weitherTemp, weitherWind, weitherHumidity, weitherDescription,weatherLoactionTv;
 
         public ViewGroup(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +73,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
             weitherTemp = itemView.findViewById(R.id.tempWeitherItemTvId);
             weitherWind = itemView.findViewById(R.id.windWeitherItemTvId);
             weitherDescription = itemView.findViewById(R.id.weitherDiscriptionTvId);
+            //weatherLoactionTv = itemView.findViewById(R.id.cityStatusCurrentTvId);
             //weitherHumidity = itemView.findViewById(R.id.humidityWeitherItemTvId);
 
 
