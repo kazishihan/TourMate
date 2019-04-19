@@ -198,43 +198,61 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             }
         });
 
-        viewHolder.deleteEvent.setOnClickListener(new View.OnClickListener() {
+        viewHolder.detailsEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
+
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
-                View view = layoutInflater.inflate(R.layout.delete_alartdialog_layout, null);
+                View view = layoutInflater.inflate(R.layout.alartdialog_details_event, null);
 
                 builder.setView(view);
                 final Dialog dialog = builder.create();
+                TextView tripTitleTv,tripDescriptionTv,tripStartPlaceTv,tripBudgetTv,tripStartDateTv,tripEndDateTv,alartCloseTv;
+
+                tripTitleTv=view.findViewById(R.id.alartTripTitleTvId);
+                tripDescriptionTv=view.findViewById(R.id.alartTripDescriptionTvId);
+                tripStartPlaceTv=view.findViewById(R.id.alartTripStartPlaceTvId);
+                tripBudgetTv=view.findViewById(R.id.alartTripBudgetTvId);
+                tripStartDateTv=view.findViewById(R.id.alartTripSDateTvId);
+                tripEndDateTv=view.findViewById(R.id.alartTripEDateTvId);
+                alartCloseTv = view.findViewById(R.id.alartCloseTvID);
+
+                SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMM yyyy");
+                /// SimpleDateFormat dateSDF = new SimpleDateFormat("EEE, d MMM yyyy");
+
+                Long longfrmDate1=Long.valueOf( mylist.getTrip_fromDate());
+                Long longtoDate1=Long.valueOf( mylist.getTrip_toDate());
+                Date date0 = new Date();
+
+
+//
+//                viewHolder.fromdate.setText(dateSDF.format(date));
+
+                tripTitleTv.setText(mylist.getTrip_Name());
+                tripDescriptionTv.setText(mylist.getTrip_Description());
+                tripStartPlaceTv.setText(mylist.getTrip_StartPlace());
+                tripBudgetTv.setText(mylist.getTrip_Budget());
+                date0.setTime(longfrmDate1);
+                tripStartDateTv.setText(dateSDF.format(date0));
+                date0.setTime(longtoDate1);
+                tripEndDateTv.setText(dateSDF.format(date0));
+
                 dialog.show();
 
-                TextView deleteActin = view.findViewById(R.id.deleteAlartTv);
-                TextView cancel = view.findViewById(R.id.cancelAlartTv);
-
-
-                deleteActin.setOnClickListener(new View.OnClickListener() {
+                alartCloseTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        firebaseDatabase = FirebaseDatabase.getInstance();
-                        firebaseAuth = FirebaseAuth.getInstance();
-                        currentuser = firebaseAuth.getCurrentUser().getUid();
-
-                        database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(mylist.getTrip_id()).removeValue();
-
-                        notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 });
 
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        dialog.dismiss();
-                    }
-                });
+
+
+
 
 
             }
@@ -271,7 +289,45 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
 
                                 break;
-                            case R.id.detailsTripMenu:
+                            case R.id.deleteTripMenu:
+
+
+
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                                View view = layoutInflater.inflate(R.layout.delete_alartdialog_layout, null);
+
+                                builder.setView(view);
+                                final Dialog dialog = builder.create();
+                                dialog.show();
+
+                                TextView deleteActin = view.findViewById(R.id.deleteAlartTv);
+                                TextView cancel = view.findViewById(R.id.cancelAlartTv);
+
+
+                                deleteActin.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        firebaseDatabase = FirebaseDatabase.getInstance();
+                                        firebaseAuth = FirebaseAuth.getInstance();
+                                        currentuser = firebaseAuth.getCurrentUser().getUid();
+
+                                        database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(mylist.getTrip_id()).removeValue();
+
+                                        notifyDataSetChanged();
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        dialog.dismiss();
+                                    }
+                                });
+
+
 
 
                         }
@@ -300,7 +356,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView trip_title, trip_description, fromdate, todate, memoryEvent, walletEvent, deleteEvent,dayleftTv;
+        private TextView trip_title, trip_description, fromdate, todate, memoryEvent, walletEvent, detailsEvent,dayleftTv;
         private ImageView popUpMenuBtn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -311,7 +367,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             //todate = itemView.findViewById(R.id.trip_TO_Date);
             memoryEvent = itemView.findViewById(R.id.memoriesTvClickId);
             walletEvent = itemView.findViewById(R.id.walletTvClickId);
-            deleteEvent = itemView.findViewById(R.id.deleteEventTvClickId);
+            detailsEvent = itemView.findViewById(R.id.detailsEventTvClickId);
             popUpMenuBtn = itemView.findViewById(R.id.popupTripBtnIvId);
             dayleftTv = itemView.findViewById(R.id.trip_day_left);
         }

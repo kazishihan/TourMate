@@ -218,7 +218,8 @@ public class TripFragment extends Fragment {
                         if (dataSnapshot.exists()) {
                             filterList.clear();
                             for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                String fromDatetrip = data.getValue(IndividualTrip.class).getTrip_fromDate();
+                                String fromDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_fromDate();
+                               // IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
                                 //String toDatetrip = data.getValue(IndividualTrip.class).getTrip_toDate();
                                 //list.add(trip);
                                 //if()
@@ -228,7 +229,7 @@ public class TripFragment extends Fragment {
 
                                 if(selectedFromDateinMS<=flong&& selectedToDateinMS>=flong)
                                 {
-                                    IndividualTrip trip =data.getValue(IndividualTrip.class);
+                                    IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
                                     filterList.add(trip);
                                 }
 
