@@ -116,8 +116,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
         }
 
-
-
+        date.setTime(longfrmDate);
 
         viewHolder.fromdate.setText(dateSDF.format(date));
 
