@@ -50,10 +50,10 @@ import java.util.Map;
 
 public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
 
-    private EditText addTriptitle, addTripDiscription,addTripStartPlace,addTripBudget;
+    private EditText addTriptitle, addTripDiscription, addTripStartPlace, addTripBudget;
     private Button addtrip;
     private ImageView fromDateIv, toDateIv;
-    private TextView DateTv, toDateTv;
+    private TextView DateTv, toDateTv,addEventTv;
     private long selectedFromDateinMS;
     private long selectedToDateinMS;
 
@@ -64,6 +64,15 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
     private FirebaseDatabase firebaseDatabase;
 
     private List<IndividualTrip> tripList;
+
+    /////////////////
+
+    private String triptitle;
+    private String tripDescription;
+
+    private String tripStart;
+    private String tripBudget;
+    private String eventID;
 
 
     @Nullable
@@ -80,12 +89,28 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
         addTripDiscription = view.findViewById(R.id.tripDescriptionId);
         addtrip = view.findViewById(R.id.addTrip);
         addTripStartPlace = view.findViewById(R.id.tripStartingPlaceEtId);
-        addTripBudget=view.findViewById(R.id.tripBudgetEtId);
+        addTripBudget = view.findViewById(R.id.tripBudgetEtId);
+        addEventTv = view.findViewById(R.id.addEventTvId);
 
+
+        if (eventID != null) {
+            addTriptitle.setText(triptitle);
+            addTripDiscription.setText(tripDescription);
+            addTripStartPlace.setText(tripStart);
+            addTripBudget.setText(tripBudget);
+            Toast.makeText(getContext(), "date" + selectedFromDateinMS, Toast.LENGTH_SHORT).show();
+            Date date = new Date();
+            SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMM yyyy");
+            date.setTime(selectedFromDateinMS);
+            DateTv.setText(dateSDF.format(date));
+            date.setTime(selectedToDateinMS);
+            toDateTv.setText(dateSDF.format(date));
+            addEventTv.setText("Update Event");
+            addtrip.setText("Update");
+
+        }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser().getUid();
         //databaseReference = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").push();
@@ -94,21 +119,20 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
         addtrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String triptitle = addTriptitle.getText().toString();
-                String tripDescription = addTripDiscription.getText().toString();
+                triptitle = addTriptitle.getText().toString();
+                tripDescription = addTripDiscription.getText().toString();
                 addTripFromDate = String.valueOf(selectedFromDateinMS);
                 addTripToDate = String.valueOf(selectedToDateinMS);
-                String tripStart = addTripStartPlace.getText().toString();
-                String tripBudget=addTripBudget.getText().toString();
+                tripStart = addTripStartPlace.getText().toString();
+                tripBudget = addTripBudget.getText().toString();
 
                 if (triptitle.equals("")) {
                     Toast.makeText(getContext(), "Please Enter your Event Title", Toast.LENGTH_SHORT).show();
                 } else if (tripDescription.equals("")) {
                     Toast.makeText(getContext(), "Please Enter a description for your event", Toast.LENGTH_SHORT).show();
                 } else {
-                    saveToDB(new IndividualTrip(triptitle,tripDescription,addTripFromDate,addTripToDate,tripStart,tripBudget));
+                    saveToDB(new IndividualTrip(triptitle, tripDescription, addTripFromDate, addTripToDate, tripStart, tripBudget));
                 }
-
 
             }
         });
@@ -138,19 +162,38 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
     private void saveToDB(IndividualTrip individualTrip) {
 
 
-        DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser);
+        if (eventID != null) {
 
-        String userId = userDB.push().getKey();
-        individualTrip.setTrip_id(userId);
+            DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser);
 
-        userDB.child("Events").child(userId).setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+            //String userId = userDB.push().getKey();
+            individualTrip.setTrip_id(eventID);
+
+            userDB.child("Events").child(eventID).setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        else {
+            DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser);
+
+            String userId = userDB.push().getKey();
+            individualTrip.setTrip_id(userId);
+
+            userDB.child("Events").child(userId).setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
     }
 
@@ -232,4 +275,59 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
     }
 
 
+    public long getSelectedFromDateinMS() {
+        return selectedFromDateinMS;
+    }
+
+    public void setSelectedFromDateinMS(long selectedFromDateinMS) {
+        this.selectedFromDateinMS = selectedFromDateinMS;
+    }
+
+    public long getSelectedToDateinMS() {
+        return selectedToDateinMS;
+    }
+
+    public void setSelectedToDateinMS(long selectedToDateinMS) {
+        this.selectedToDateinMS = selectedToDateinMS;
+    }
+
+    public String getTriptitle() {
+        return triptitle;
+    }
+
+    public void setTriptitle(String triptitle) {
+        this.triptitle = triptitle;
+    }
+
+    public String getTripDescription() {
+        return tripDescription;
+    }
+
+    public void setTripDescription(String tripDescription) {
+        this.tripDescription = tripDescription;
+    }
+
+    public String getTripStart() {
+        return tripStart;
+    }
+
+    public void setTripStart(String tripStart) {
+        this.tripStart = tripStart;
+    }
+
+    public String getTripBudget() {
+        return tripBudget;
+    }
+
+    public void setTripBudget(String tripBudget) {
+        this.tripBudget = tripBudget;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
 }

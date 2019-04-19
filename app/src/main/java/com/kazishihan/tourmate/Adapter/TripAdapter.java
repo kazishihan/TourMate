@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kazishihan.tourmate.Activity.MemoryActivity;
 import com.kazishihan.tourmate.Activity.WalletActivity;
+import com.kazishihan.tourmate.BottomSheet_AddTrip;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
 import com.kazishihan.tourmate.Fragment.MemoryFragment;
 import com.kazishihan.tourmate.Fragment.WalletFragment;
@@ -254,6 +255,20 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
                         switch (item.getItemId()) {
                             case R.id.updateTripMenu:
+
+
+
+                                BottomSheet_AddTrip bottomSheet_addTrip = new BottomSheet_AddTrip();
+                                FragmentManager fragmentManager3 = ((AppCompatActivity) context).getSupportFragmentManager();
+                                bottomSheet_addTrip.setEventID(mylist.getTrip_id());
+                                bottomSheet_addTrip.setTriptitle(mylist.getTrip_Name());
+                                bottomSheet_addTrip.setTripDescription(mylist.getTrip_Description());
+                                bottomSheet_addTrip.setTripStart(mylist.getTrip_StartPlace());
+                                bottomSheet_addTrip.setTripBudget(mylist.getTrip_Budget());
+                                bottomSheet_addTrip.setSelectedFromDateinMS(Long.valueOf(mylist.getTrip_fromDate()));
+                                bottomSheet_addTrip.setSelectedToDateinMS(Long.valueOf(mylist.getTrip_toDate()));
+                                bottomSheet_addTrip.show(fragmentManager3,"Bottom");
+
 
                                 break;
                             case R.id.detailsTripMenu:
