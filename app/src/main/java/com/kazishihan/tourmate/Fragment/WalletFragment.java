@@ -133,12 +133,12 @@ public class WalletFragment extends Fragment {
 
 
         dataB = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
-        dataB.child("Events").child(eventId).addValueEventListener(new ValueEventListener() {
+        dataB.child("Events").child(eventId).child("info").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 budget = Integer.valueOf(dataSnapshot.getValue(IndividualTrip.class).getTrip_Budget());
 
-                Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
 
                 cBudget = budget;
             }

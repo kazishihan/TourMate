@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:textSize="20sp"
+        android:text="Trip Title"
+        android:textColor="@color/mainColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/alartTripTitleTvId"
+        android:hint="Lunch"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+    <TextView
+        android:textSize="20sp"
+        android:text="Amount:"
+        android:textColor="@color/mainColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/bottoms_sheet_amount_id"
+        android:hint="80 BDT"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:textSize="20sp"
+        android:text="Date:"
+        android:textColor="@color/mainColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/bottoms_sheet_date_id"
+        android:hint="Lunch"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+    <TextView
+        android:textSize="20sp"
+        android:text="Time:"
+        android:textColor="@color/mainColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/bottoms_time_id"
+        android:hint="No time added"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

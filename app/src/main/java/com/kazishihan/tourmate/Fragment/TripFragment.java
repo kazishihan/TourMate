@@ -103,7 +103,9 @@ public class TripFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     list.clear();
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        IndividualTrip trip = data.getValue(IndividualTrip.class);
+
+                        IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
+
                         list.add(trip);
 
                     }

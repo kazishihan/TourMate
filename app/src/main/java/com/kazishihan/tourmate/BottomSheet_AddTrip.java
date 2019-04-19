@@ -169,7 +169,7 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
             //String userId = userDB.push().getKey();
             individualTrip.setTrip_id(eventID);
 
-            userDB.child("Events").child(eventID).setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
+            userDB.child("Events").child(eventID).child("info").setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -185,7 +185,7 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
             String userId = userDB.push().getKey();
             individualTrip.setTrip_id(userId);
 
-            userDB.child("Events").child(userId).setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
+            userDB.child("Events").child(userId).child("info").setValue(individualTrip).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
