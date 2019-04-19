@@ -45,7 +45,30 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
     DatabaseReference userDB;
 
 
+    String expenseType;
+    String expenseAmount ;
+    int flag=0;
+    String curentExpenseId;
+
+
+    public void setCurentExpenseId(String curentExpenseId) {
+        this.curentExpenseId = curentExpenseId;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public void setExpenseType(String expenseType) {
+        this.expenseType = expenseType;
+    }
+
+    public void setExpenseAmount(String expenseAmount) {
+        this.expenseAmount = expenseAmount;
+    }
+
     public void setEventId(String eventId) {
+
         this.eventId = eventId;
     }
 
@@ -70,13 +93,21 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
         SimpleDateFormat currenttime = new SimpleDateFormat("HH:mm");
         expenseTime = currenttime.format(callForDate.getTime());
 
+        Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
+        if(flag==1)
+        {
+            expenseTypeEt.setText(expenseType);
+            expenseAmountEt.setText(expenseAmount);
+            addExpensebtnl.setText("Update");
+        }
+
 
         addExpensebtnl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String expenseType = expenseTypeEt.getText().toString();
-                String expenseAmount = expenseAmountEt.getText().toString();
+               expenseType = expenseTypeEt.getText().toString();
+               expenseAmount = expenseAmountEt.getText().toString();
 
                 if (expenseType == null) {
                     Toast.makeText(getContext(), "enter expense Type", Toast.LENGTH_SHORT).show();
@@ -87,6 +118,8 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
                     Toast.makeText(getContext(), "enter expense amount", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
 
                 saveToDB(new Expense(expenseType, expenseAmount, expenseTime));
 
@@ -100,20 +133,47 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
 
     private void saveToDB(Expense expense) {
 
+       // Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
 
-        DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser).child("Events").child(eventId);
+        if(flag==1)
+        {
+            DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser).child("Events").child(eventId);
 
-        String memoryId = userDB.push().getKey();
-        expense.setExpenseId(memoryId);
+            //String memoryId = userDB.push().getKey();
+            expense.setExpenseId(curentExpenseId);
 
-        userDB.child("Wallet").child(memoryId).setValue(expense).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+            userDB.child("Wallet").child(curentExpenseId).setValue(expense).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
+        else{
+
+            DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser).child("Events").child(eventId);
+
+            String memoryId = userDB.push().getKey();
+            expense.setExpenseId(memoryId);
+
+            userDB.child("Wallet").child(memoryId).setValue(expense).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+        }
+
+
+
 
     }
 

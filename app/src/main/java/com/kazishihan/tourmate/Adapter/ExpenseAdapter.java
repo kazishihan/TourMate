@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kazishihan.tourmate.BottomSheet.BottomSheet_AddExpense;
 import com.kazishihan.tourmate.Classes.Expense;
 import com.kazishihan.tourmate.Classes.MemoryClass;
 import com.kazishihan.tourmate.R;
@@ -80,11 +83,14 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
                         switch (item.getItemId()) {
                             case R.id.updateWaletMenu:
 
-
-
-
-
-
+                                BottomSheet_AddExpense bottomSheet_addExpense = new BottomSheet_AddExpense();
+                                FragmentManager fragmentManager2 = ((AppCompatActivity) context).getSupportFragmentManager();
+                                bottomSheet_addExpense.setEventId(eventId);
+                                bottomSheet_addExpense.setExpenseType(expenseitem.getExpenseType());
+                                bottomSheet_addExpense.setExpenseAmount(expenseitem.getExpenseAmount());
+                                bottomSheet_addExpense.setFlag(1);
+                                bottomSheet_addExpense.setCurentExpenseId(expenseitem.getExpenseId());
+                                bottomSheet_addExpense.show(fragmentManager2,"bottom");
 
                                 break;
                             case R.id.deleteWaletMenu:
