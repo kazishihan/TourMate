@@ -42,8 +42,6 @@ public class WalletFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private BottomSheet_AddExpense bottomSheet_addExpense;
     public String eventId;
-
-
     private BottomSheet_AddTrip bottomSheet_addTrip;
     private FloatingActionButton fab;
     private RecyclerView recyclerView;

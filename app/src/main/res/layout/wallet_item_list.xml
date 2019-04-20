@@ -75,7 +75,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
                 android:text="Time"
-
                 android:textSize="15sp" />
 
 
@@ -88,18 +87,20 @@
             android:layout_height="match_parent">
 
 
-            <ImageView
+            <TextView
                 android:id="@+id/iconIv"
-
                 android:layout_gravity="center"
-                android:src="@drawable/dollar"
+                android:text="ট"
+                android:textColor="@color/mainColor"
+                android:textSize="17sp"
+                android:layout_marginRight="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
 
             <TextView
                 android:id="@+id/expenseAmountListTvId"
-
+                 android:textColor="@color/Red"
                 android:textSize="16sp"
                 android:layout_gravity="center"
                 android:text="50"
@@ -113,6 +114,7 @@
             android:layout_gravity="center"
             android:id="@+id/popUpMenuExpenseId"
             android:src="@drawable/popup"
+            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"  />
 

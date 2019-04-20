@@ -28,6 +28,7 @@ import com.kazishihan.tourmate.Classes.Expense;
 import com.kazishihan.tourmate.Classes.MemoryClass;
 import com.kazishihan.tourmate.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
@@ -37,6 +38,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference, postRef;
     private FirebaseDatabase firebaseDatabase;
+    private SimpleDateFormat timeSDF = new SimpleDateFormat("hh:mm aa");
 
     private List<Expense> expenseList;
     Context context;
