@@ -12,6 +12,7 @@
         android:gravity="center"
         android:textSize="35dp"
         android:text="Add Event"
+        android:textColor="@color/mainColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -53,13 +54,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
+        android:theme="@style/AppTheme.NoActionBar"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="Starting Place"
             android:singleLine="true"
             android:imeOptions="actionNext"
-            android:theme="@style/AppTheme.NoActionBar"
             android:id="@+id/tripStartingPlaceEtId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -72,14 +73,15 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
+        android:theme="@style/AppTheme.NoActionBar"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="Estimated Budjet"
             android:singleLine="true"
-            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:imeOptions="actionDone"
             android:id="@+id/tripBudgetEtId"
-            android:theme="@style/AppTheme.NoActionBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -99,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:tint="@color/blue"
+            android:tint="@color/mainColor"
             android:src="@drawable/datecalender" />
 
         <TextView
@@ -129,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:tint="@color/blue"
+            android:tint="@color/mainColor"
             android:src="@drawable/datecalender" />
 
         <TextView

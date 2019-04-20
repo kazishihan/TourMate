@@ -10,13 +10,13 @@
     <android.support.design.widget.TextInputLayout
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:theme="@style/AppTheme.NoActionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="Expense Type"
             android:singleLine="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:imeOptions="actionNext"
             android:id="@+id/expenseTypeIdListEtId"
             android:layout_width="match_parent"
@@ -29,12 +29,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
+        android:theme="@style/AppTheme.NoActionBar"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="Expense Amount"
             android:singleLine="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:inputType="number"
             android:imeOptions="actionDone"
             android:id="@+id/expenseAmountnListEtId"

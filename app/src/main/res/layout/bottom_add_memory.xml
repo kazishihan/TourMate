@@ -47,10 +47,10 @@
 
         <EditText
 
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:hint="Description"
             android:singleLine="true"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:id="@+id/imageDescriptionBottomId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
