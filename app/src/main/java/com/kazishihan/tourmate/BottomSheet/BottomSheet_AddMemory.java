@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +31,11 @@ import com.kazishihan.tourmate.Activity.MemoryActivity;
 import com.kazishihan.tourmate.Classes.MemoryClass;
 import com.kazishihan.tourmate.R;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -84,6 +90,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
         uploadimae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //openGalary();
                 openGalary();
             }
         });
@@ -173,6 +180,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -189,6 +197,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
     }
 
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,6 +206,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             ImageUri = data.getData();
             uploadimae.setImageURI(ImageUri);
         }
-    }
 
+
+    }
 }

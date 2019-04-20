@@ -23,7 +23,7 @@
             android:id="@+id/memoryCaptionListIvId"
             android:textSize="20dp"
             android:text="Caption"
-            android:gravity="center"
+            android:layout_margin="5dp"
             android:textColor="@color/mainColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

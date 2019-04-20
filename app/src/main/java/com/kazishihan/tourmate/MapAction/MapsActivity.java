@@ -148,10 +148,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         switch(v.getId())
         {
-            case R.id.B_search:
-                EditText tf_location =  findViewById(R.id.TF_location);
-                String location = tf_location.getText().toString();
-                List<Address> addressList;
+//            case R.id.B_search:
+//                EditText tf_location =  findViewById(R.id.TF_location);
+//                String location = tf_location.getText().toString();
+//                List<Address> addressList;
 
 //
 //                if(!location.equals(""))
@@ -211,7 +211,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getNearbyPlacesData.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Restaurants", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.B_to:
+            case R.id.hospitalId:
                 mMap.clear();
                 String hospital = "bank";
                 url = getUrl(latitude, longitude, hospital);

@@ -29,6 +29,8 @@ import com.kazishihan.tourmate.Classes.Expense;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
 import com.kazishihan.tourmate.R;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,8 @@ public class WalletFragment extends Fragment {
     //private Context context;
     private FirebaseAuth firebaseAuth;
     private String currentuser;
+
+    private NumberFormat nf = new DecimalFormat("##.###");
     //int total;
 
     private TextView currentBalanceTvId,expensePersentageTv,budExTv;
@@ -187,8 +191,8 @@ public class WalletFragment extends Fragment {
     private void checkBalance(int total, int bud) {
 
         double consumed2 = (Double.valueOf(expenditure) * 100) / Double.valueOf(budget);
-        expensePersentageTv.setText(String.valueOf(consumed2)+" %");
-        int cBalance = bud-total;
+        expensePersentageTv.setText(String.valueOf(nf.format(consumed2))+"%");
+        final int cBalance = bud-total;
         currentBalanceTvId.setText(String.valueOf(cBalance)+ " BDT");
 //        totalBudgetTv.setText("Budget: "+bud+" BDT");
 //        totalexpenseTv.setText("Total Expense: "+total+" BDT");
@@ -196,31 +200,30 @@ public class WalletFragment extends Fragment {
 
 
 
+                // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
 
+                floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-        if (cBalance>0) {
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
-
-                    floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
+                        if (cBalance>0) {
                             bottomSheet_addExpense = new BottomSheet_AddExpense();
                             bottomSheet_addExpense.setEventId(eventId);
                             bottomSheet_addExpense.show(getFragmentManager(), "bottomSheetImageDialog");
 
+                        } else {
+
+                            Toast.makeText(getContext(), "Insufficient Balance!", Toast.LENGTH_SHORT).show();
+
                         }
-                    });
-                }
-            });
-        } else {
 
 
-        }
+
+                    }
+                });
+
+
+
 
 
     }

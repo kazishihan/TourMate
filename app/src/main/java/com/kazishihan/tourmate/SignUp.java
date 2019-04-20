@@ -134,8 +134,8 @@ public class SignUp extends AppCompatActivity {
                                 fnameET.setText("");
                                 lnameEt.setText("");
                                 Toast.makeText(SignUp.this, "Sign Up success", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUp.this, LoginActivity.class);
-                                startActivity(intent);
+                               // Intent intent = new Intent(SignUp.this, LoginActivity.class);
+                               // startActivity(intent);
                             } else {
                                 Toast.makeText(SignUp.this, "Sign Up not success", Toast.LENGTH_SHORT).show();
                             }

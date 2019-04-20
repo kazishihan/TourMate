@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.OnProgressListener;
 import com.kazishihan.tourmate.Adapter.MomentAdapter;
 import com.kazishihan.tourmate.Adapter.TripAdapter;
 import com.kazishihan.tourmate.BottomSheet.BottomSheet_AddMemory;
@@ -34,6 +36,7 @@ public class MemoryActivity extends AppCompatActivity {
     private List<MemoryClass> memorylist;
     public String eventId;
     String currentuser;
+    ProgressBar progressBar;
     FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
    // private EventIdClass eventIdClass;
@@ -95,11 +98,15 @@ public class MemoryActivity extends AppCompatActivity {
                 }
             }
 
+
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(MemoryActivity.this, ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
 
