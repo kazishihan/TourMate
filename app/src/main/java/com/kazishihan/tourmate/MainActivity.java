@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kazishihan.tourmate.Adapter.TripAdapter;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
+import com.kazishihan.tourmate.Fragment.DashBoardFragment;
 import com.kazishihan.tourmate.Fragment.MemoryFragment;
 import com.kazishihan.tourmate.Fragment.TripFragment;
 import com.kazishihan.tourmate.Fragment.WalletFragment;
@@ -106,11 +107,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loaddefaultfragment() {
-        TripFragment tripFragment = new TripFragment();
+
+        DashBoardFragment dashBoardFragment = new DashBoardFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout_id, tripFragment);
+        fragmentTransaction.replace(R.id.frame_layout_id, dashBoardFragment);
         fragmentTransaction.commit();
+
     }
 
 
@@ -190,6 +193,12 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_Ticket) {
 
+
+//            TripFragment tripFragment = new TripFragment();
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.frame_layout_id, tripFragment);
+//            fragmentTransaction.commit();
 
         }
 

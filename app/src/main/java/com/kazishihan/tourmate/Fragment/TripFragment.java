@@ -85,7 +85,7 @@ public class TripFragment extends Fragment {
         fromDatepicked = view.findViewById(R.id.fromDatePickDashboadLayoutId);
         toDatepicked = view.findViewById(R.id.toDatePickDashboardID);
 
-        viewAllTripsTv = view.findViewById(R.id.viewAllTrips);
+      //  viewAllTripsTv = view.findViewById(R.id.viewAllTrips);
         ///////////////
 
 
@@ -160,98 +160,98 @@ Date date1 = new Date();
 
 
 
+        viewAllTrip();
 
 
 
-
-
-        database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
-        database.child("Events").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    filterList.clear();
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        String fromDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_fromDate();
-                        String toDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_toDate();
-                        // IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
-                        //String toDatetrip = data.getValue(IndividualTrip.class).getTrip_toDate();
-                        //list.add(trip);
-                        //if()
-
-                        Long flong = Long.valueOf(fromDatetrip);
-                        Long tlong = Long.valueOf(toDatetrip);
-                        // Long tlong = Long.valueOf(toDatetrip);
-
-//                        if(fromdateMs<=tlong&& todateMs>=tlong)
+//
+//        database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
+//        database.child("Events").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    filterList.clear();
+//                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                        String fromDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_fromDate();
+//                        String toDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_toDate();
+//                        // IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
+//                        //String toDatetrip = data.getValue(IndividualTrip.class).getTrip_toDate();
+//                        //list.add(trip);
+//                        //if()
+//
+//                        Long flong = Long.valueOf(fromDatetrip);
+//                        Long tlong = Long.valueOf(toDatetrip);
+//                        // Long tlong = Long.valueOf(toDatetrip);
+//
+////                        if(fromdateMs<=tlong&& todateMs>=tlong)
+////                        {
+////                            IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
+////                            filterList.add(trip);
+////                        }
+//
+//                        Calendar calendar = Calendar.getInstance();
+//
+//                        int year = calendar.get(calendar.YEAR);
+//                        int month = calendar.get(calendar.MONTH);
+//                        int day = calendar.get(calendar.DAY_OF_MONTH);
+//                        month = month + 1;
+//                        String selectedDate = year + "/" + month + "/" + day + " 23:59:59";
+//
+//                        SimpleDateFormat dateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//                        SimpleDateFormat dateSDFF = new SimpleDateFormat("dd MMM yyyy");
+//
+//
+//                        Date date1 = null;
+//                        try {
+//                            date1 = dateandTimeSDF.parse(selectedDate);
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        fromdateMs1 = date1.getTime();
+//
+//
+//                        if(flong <= fromdateMs1 && tlong>=fromdateMs1)
 //                        {
 //                            IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
 //                            filterList.add(trip);
+//
 //                        }
-
-                        Calendar calendar = Calendar.getInstance();
-
-                        int year = calendar.get(calendar.YEAR);
-                        int month = calendar.get(calendar.MONTH);
-                        int day = calendar.get(calendar.DAY_OF_MONTH);
-                        month = month + 1;
-                        String selectedDate = year + "/" + month + "/" + day + " 23:59:59";
-
-                        SimpleDateFormat dateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                        SimpleDateFormat dateSDFF = new SimpleDateFormat("dd MMM yyyy");
-
-
-                        Date date1 = null;
-                        try {
-                            date1 = dateandTimeSDF.parse(selectedDate);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        fromdateMs1 = date1.getTime();
-
-
-                        if(flong <= fromdateMs1 && tlong>=fromdateMs1)
-                        {
-                            IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
-                            filterList.add(trip);
-
-                        }
-
-                    }
-                   // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
-                    if(filterList.size()==0)
-                    {
-                        viewAllTrip();
-                        return;
-
-                    }
-                    tripAdapter = new TripAdapter(filterList, getContext());
-                    triprecyclerView.setAdapter(tripAdapter);
-                    tripAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//
+//                    }
+//                   // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
+//                    if(filterList.size()==0)
+//                    {
+//                        viewAllTrip();
+//                        return;
+//
+//                    }
+//                    tripAdapter = new TripAdapter(filterList, getContext());
+//                    triprecyclerView.setAdapter(tripAdapter);
+//                    tripAdapter.notifyDataSetChanged();
+//                } else {
+//                    Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
-viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-
-    viewAllTrip();
-
-
-    }
-});
+//viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//
+//
+//    viewAllTrip();
+//
+//
+//    }
+//});
 
 
 
@@ -400,7 +400,7 @@ viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
                                 }
 
                             }
-                            Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
                             tripAdapter = new TripAdapter(filterList, getContext());
                             triprecyclerView.setAdapter(tripAdapter);
                             tripAdapter.notifyDataSetChanged();
