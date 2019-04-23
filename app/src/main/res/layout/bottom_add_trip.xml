@@ -111,7 +111,7 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/mainColor"
             android:layout_toRightOf="@+id/dateiconId"
-            android:hint="Pick Start Date"
+            android:hint="Pick Tour Start Date"
             android:paddingTop="12dp"
             android:textSize="16sp" />
 
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/todateiconId"
-            android:hint="Pick End Date"
+            android:hint="Pick Tour End Date"
             android:paddingTop="12dp"
             android:textColor="@color/mainColor"
             android:textSize="16sp" />

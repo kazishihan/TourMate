@@ -17,6 +17,8 @@
         android:orientation="vertical">
 
 
+
+
         <RelativeLayout
             android:background="@color/mainColor"
             android:id="@+id/relativelayout1"
@@ -25,7 +27,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_marginLeft="65dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="15dp"
@@ -48,13 +50,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="11dp"
-                    android:text="From Date" />
+                    android:text="Chose from Date" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="75dp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 android:id="@+id/toDatePickDashboardID"
                 android:orientation="horizontal"
@@ -76,12 +78,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="11dp"
-                    android:text="To Date" />
+                    android:text="Chose from Date" />
 
 
             </LinearLayout>
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/viewAllTrips"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:text="View All Trips"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
 

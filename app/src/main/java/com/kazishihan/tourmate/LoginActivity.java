@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this,splashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 //                    String userId = firebaseAuth.getCurrentUser().getUid();

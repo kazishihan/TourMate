@@ -68,6 +68,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
        /// SimpleDateFormat dateSDF = new SimpleDateFormat("EEE, d MMM yyyy");
 
        Long longfrmDate=Long.valueOf( mylist.getTrip_fromDate());
+       Long longToDate=Long.valueOf( mylist.getTrip_toDate());
        Date date = new Date();
       //  date.setTime(longfrmDate);
 
@@ -95,17 +96,29 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
         fromdateMs = date1.getTime();
 
-        if (longfrmDate > fromdateMs) {
+
+        if(longfrmDate <= fromdateMs && longToDate>=fromdateMs)
+        {
+            viewHolder.dayleftTv.setText(" In Tour");
+        }
+
+
+       else if (longfrmDate > fromdateMs)
+        {
             long diff =longfrmDate -fromdateMs;
            long days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            days = days+1;
-            if (days == 1) {
+            //days = days;
+            if (days == 0)
+            {
                 viewHolder.dayleftTv.setText(" Tomorrow");
             }
             else
                 viewHolder.dayleftTv.setText(days + " days left");
         }
-        else
+
+
+
+        else if(longToDate<fromdateMs)
         {
             viewHolder.dayleftTv.setTextColor(context.getResources().getColor(R.color.darkRed));
             viewHolder.dayleftTv.setText("Expired");
@@ -206,11 +219,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                 });
 
 
-
-
-
-
-
             }
         });
 
@@ -267,7 +275,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                                         firebaseDatabase = FirebaseDatabase.getInstance();
                                         firebaseAuth = FirebaseAuth.getInstance();
                                         currentuser = firebaseAuth.getCurrentUser().getUid();
-
                                         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(mylist.getTrip_id()).removeValue();
 
                                         notifyDataSetChanged();

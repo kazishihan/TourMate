@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TripFragment extends Fragment {
 
@@ -53,13 +54,18 @@ public class TripFragment extends Fragment {
     //private Context context;
     private FirebaseAuth firebaseAuth;
     String currentuser;
+
+    private long fromdateMs;
+    private long fromdateMs1;
+    private long todateMs;
+    private long todateMss =Long.valueOf("2592000000");
     ////////////////
 
     private TextView fromDateTv, toDateTv;
     private LinearLayout fromDatepicked, toDatepicked;
     private long selectedFromDateinMS;
     private long selectedToDateinMS;
-
+    private TextView viewAllTripsTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +84,8 @@ public class TripFragment extends Fragment {
 
         fromDatepicked = view.findViewById(R.id.fromDatePickDashboadLayoutId);
         toDatepicked = view.findViewById(R.id.toDatePickDashboardID);
+
+        viewAllTripsTv = view.findViewById(R.id.viewAllTrips);
         ///////////////
 
 
@@ -96,7 +104,146 @@ public class TripFragment extends Fragment {
         });
 
 
+
+
+        ///////////////////////////////////////
+
+        Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(calendar.YEAR);
+        int month = calendar.get(calendar.MONTH);
+        int day = calendar.get(calendar.DAY_OF_MONTH);
+        month = month + 1;
+
+        String selectedDate = year + "/" + month + "/" + day + " 00:00:00";
+
+        SimpleDateFormat dateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMM yyyy");
+
+        Date date = null;
+        try {
+            date = dateandTimeSDF.parse(selectedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        fromdateMs = date.getTime();
+        fromDateTv.setText(dateSDF.format(date));
+
+
+        int year1 = calendar.get(calendar.YEAR);
+        int month1 = calendar.get(calendar.MONTH);
+        int day1 = calendar.get(calendar.DAY_OF_MONTH);
+        month1 = month1+1;
+        day1=day1+30;
+        String selectedtoDate = year1 + "/" + month1 + "/" + day1 + " 23:59:59";
+
+        SimpleDateFormat todateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+
+Date date1 = new Date();
+
+        date1 =null;
+        try {
+            date1 = todateandTimeSDF.parse(selectedtoDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+       // long days = (int) TimeUnit.DAYS.convert(2592000000, TimeUnit.MILLISECONDS);
+        todateMs =date1.getTime();
+       // todateMs=todateMs+todateMss;
+
+        toDateTv.setText(dateSDF.format(date1));
+
+        /////////
+
+
+
+
+
+
+
+
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
+        database.child("Events").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    filterList.clear();
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        String fromDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_fromDate();
+                        String toDatetrip = data.child("info").getValue(IndividualTrip.class).getTrip_toDate();
+                        // IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
+                        //String toDatetrip = data.getValue(IndividualTrip.class).getTrip_toDate();
+                        //list.add(trip);
+                        //if()
+
+                        Long flong = Long.valueOf(fromDatetrip);
+                        Long tlong = Long.valueOf(toDatetrip);
+                        // Long tlong = Long.valueOf(toDatetrip);
+
+//                        if(fromdateMs<=tlong&& todateMs>=tlong)
+//                        {
+//                            IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
+//                            filterList.add(trip);
+//                        }
+
+                        Calendar calendar = Calendar.getInstance();
+
+                        int year = calendar.get(calendar.YEAR);
+                        int month = calendar.get(calendar.MONTH);
+                        int day = calendar.get(calendar.DAY_OF_MONTH);
+                        month = month + 1;
+                        String selectedDate = year + "/" + month + "/" + day + " 23:59:59";
+
+                        SimpleDateFormat dateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                        SimpleDateFormat dateSDFF = new SimpleDateFormat("dd MMM yyyy");
+
+
+                        Date date1 = null;
+                        try {
+                            date1 = dateandTimeSDF.parse(selectedDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        fromdateMs1 = date1.getTime();
+
+
+                        if(flong <= fromdateMs1 && tlong>=fromdateMs1)
+                        {
+                            IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
+                            filterList.add(trip);
+                        }
+
+                    }
+                    Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
+                    tripAdapter = new TripAdapter(filterList, getContext());
+                    triprecyclerView.setAdapter(tripAdapter);
+                    tripAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        fromDateTv.setText("Chose from Date");
+        toDateTv.setText("Chose To Date");
+
+
+                database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
         database.child("Events").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -122,6 +269,14 @@ public class TripFragment extends Fragment {
                 Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+    }
+});
+
+
+
 
 
 
