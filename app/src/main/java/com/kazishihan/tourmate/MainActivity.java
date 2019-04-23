@@ -31,6 +31,7 @@ import com.kazishihan.tourmate.Adapter.TripAdapter;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
 import com.kazishihan.tourmate.Fragment.DashBoardFragment;
 import com.kazishihan.tourmate.Fragment.MemoryFragment;
+import com.kazishihan.tourmate.Fragment.TicketFragment;
 import com.kazishihan.tourmate.Fragment.TripFragment;
 import com.kazishihan.tourmate.Fragment.WalletFragment;
 import com.kazishihan.tourmate.MapAction.MapsActivity;
@@ -143,10 +144,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            TripFragment tripFragment = new TripFragment();
+            DashBoardFragment dashBoardFragment = new DashBoardFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout_id, tripFragment);
+            fragmentTransaction.replace(R.id.frame_layout_id, dashBoardFragment);
             fragmentTransaction.commit();
 
             return true;
@@ -192,6 +193,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_Ticket) {
+
+            TicketFragment ticketFragment = new TicketFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.addToBackStack("dashboard");
+            fragmentTransaction.replace(R.id.frame_layout_id, ticketFragment);
+            fragmentTransaction.commit();
 
 
 //            TripFragment tripFragment = new TripFragment();

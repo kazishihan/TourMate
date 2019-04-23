@@ -40,6 +40,7 @@ import com.kazishihan.tourmate.Classes.Expense;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
 import com.kazishihan.tourmate.IOpenWeatherMap;
 import com.kazishihan.tourmate.MainActivity;
+import com.kazishihan.tourmate.MapAction.MapsActivity;
 import com.kazishihan.tourmate.R;
 import com.kazishihan.tourmate.RetrofitClass;
 import com.kazishihan.tourmate.WeatherActivity;
@@ -119,6 +120,8 @@ public class DashBoardFragment extends Fragment {
     private ExpenseAdapter expenseAdapter;
     //private Context context;
     private FirebaseAuth firebaseAuth1;
+   // private BottomSheet_AddTrip bottomSheet_addTrip;
+
 
     private CardView nearmeCv,weatherCV,ticketCv,allTripsCv;
 
@@ -162,6 +165,7 @@ public class DashBoardFragment extends Fragment {
         weatherCV=view.findViewById(R.id.weather_CardViewId);
         ticketCv=view.findViewById(R.id.ticket_CardViewId);
         allTripsCv=view.findViewById(R.id.allTours_CardViewId);
+        fab = view.findViewById(R.id.fab);
 
         allTripsCv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +179,18 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bottomSheet_addTrip = new BottomSheet_AddTrip();
+                bottomSheet_addTrip.show(getFragmentManager(), "BootmSheet_addtrip");
+
+            }
+        });
+
+
         weatherCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,11 +201,21 @@ public class DashBoardFragment extends Fragment {
         nearmeCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), MapsActivity.class);
                 startActivity(intent);
             }
         });
-
+    ticketCv.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TicketFragment ticketFragment = new TicketFragment();
+            FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.addToBackStack("dashboard");
+            fragmentTransaction.replace(R.id.frame_layout_id, ticketFragment);
+            fragmentTransaction.commit();
+        }
+    });
 
 
 
@@ -358,8 +384,8 @@ public class DashBoardFragment extends Fragment {
                     if(filterList.size()==0)
                     {
                         viewAllTrip();
-                        balanceLayout.setVisibility(View.GONE);
-                        triprecyclerView.setVisibility(view.GONE);
+                        balanceLayout.setVisibility(View.INVISIBLE);
+                        triprecyclerView.setVisibility(view.INVISIBLE);
                         return;
 
                     }
@@ -554,11 +580,11 @@ public class DashBoardFragment extends Fragment {
                     currentWeatherResult = weatherResult;
 
 
-                    currentWeatherDiscription.setText(""+weatherResult.getList().get(0).getWeather().get(0).getDescription());
+                    currentWeatherDiscription.setText(""+weatherResult.getList().get(2).getWeather().get(0).getDescription());
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
-                            .append(weatherResult.getList().get(0).getWeather().get(0).getIcon())
+                            .append(weatherResult.getList().get(2).getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
-                    currentWeathertemp.setText("   "+weatherResult.getList().get(0).getMain().getTemp()+"°C");
+                    currentWeathertemp.setText("   "+weatherResult.getList().get(2).getMain().getTemp()+"°C");
                     currentWeatherWind.setText("Wind :"+weatherResult.getList().get(0).getWind().getSpeed()+" km/h");
                     currentWeatherLocatonTv.setText(""+weatherResult.getCity().getName());
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();

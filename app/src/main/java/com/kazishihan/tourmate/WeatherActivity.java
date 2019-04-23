@@ -118,12 +118,12 @@ public class WeatherActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(WeatherActivity.this));
                     recyclerView.setAdapter(weatherAdapter);
 
-                    currentWeatherDiscription.setText(""+weatherResult.getList().get(0).getWeather().get(0).getDescription());
+                    currentWeatherDiscription.setText(""+weatherResult.getList().get(2).getWeather().get(0).getDescription());
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
-                            .append(weatherResult.getList().get(0).getWeather().get(0).getIcon())
+                            .append(weatherResult.getList().get(2).getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
-                    currentWeathertemp.setText("   "+weatherResult.getList().get(0).getMain().getTemp()+"°C");
-                    currentWeatherWind.setText("Wind :"+weatherResult.getList().get(0).getWind().getSpeed()+" km/h");
+                    currentWeathertemp.setText("   "+weatherResult.getList().get(2).getMain().getTemp()+"°C");
+                    currentWeatherWind.setText("Wind :"+weatherResult.getList().get(2).getWind().getSpeed()+" km/h");
                     currentWeatherLocatonTv.setText(""+weatherResult.getCity().getName());
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
                 }
