@@ -128,7 +128,7 @@ public class TripFragment extends Fragment {
         }
 
         fromdateMs = date.getTime();
-        fromDateTv.setText(dateSDF.format(date));
+       // fromDateTv.setText(dateSDF.format(date));
 
 
         int year1 = calendar.get(calendar.YEAR);
@@ -154,7 +154,7 @@ Date date1 = new Date();
         todateMs =date1.getTime();
        // todateMs=todateMs+todateMss;
 
-        toDateTv.setText(dateSDF.format(date1));
+        //toDateTv.setText(dateSDF.format(date1));
 
         /////////
 
@@ -215,10 +215,17 @@ Date date1 = new Date();
                         {
                             IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
                             filterList.add(trip);
+
                         }
 
                     }
-                    Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
+                    if(filterList.size()==0)
+                    {
+                        viewAllTrip();
+                        return;
+
+                    }
                     tripAdapter = new TripAdapter(filterList, getContext());
                     triprecyclerView.setAdapter(tripAdapter);
                     tripAdapter.notifyDataSetChanged();
@@ -239,37 +246,8 @@ viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
 
-        fromDateTv.setText("Chose from Date");
-        toDateTv.setText("Chose To Date");
 
-
-                database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
-        database.child("Events").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    list.clear();
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-
-                        IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
-
-                        list.add(trip);
-
-                    }
-                    tripAdapter = new TripAdapter(list, getContext());
-                    triprecyclerView.setAdapter(tripAdapter);
-                    tripAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+    viewAllTrip();
 
 
     }
@@ -303,6 +281,39 @@ viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
 
     }
 
+    private void viewAllTrip() {
+
+        fromDateTv.setText("Chose from Date");
+        toDateTv.setText("Chose To Date");
+
+
+        database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
+        database.child("Events").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    list.clear();
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                        IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
+
+                        list.add(trip);
+
+                    }
+                    tripAdapter = new TripAdapter(list, getContext());
+                    triprecyclerView.setAdapter(tripAdapter);
+                    tripAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
     //////////fromdate picker method
@@ -418,6 +429,9 @@ viewAllTripsTv.setOnClickListener(new View.OnClickListener() {
         datePickerDialog.show();
 
     }
+
+
+
 
 
 }
