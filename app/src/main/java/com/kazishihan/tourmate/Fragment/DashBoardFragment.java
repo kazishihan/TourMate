@@ -384,8 +384,8 @@ public class DashBoardFragment extends Fragment {
                     if(filterList.size()==0)
                     {
                         viewAllTrip();
-                        balanceLayout.setVisibility(View.INVISIBLE);
-                        triprecyclerView.setVisibility(view.INVISIBLE);
+                        balanceLayout.setVisibility(View.GONE);
+                        triprecyclerView.setVisibility(view.GONE);
                         return;
 
                     }
