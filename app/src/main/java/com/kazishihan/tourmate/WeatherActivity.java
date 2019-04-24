@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +36,8 @@ public class WeatherActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private WeitherAdapter weatherAdapter;
     private WeatherResult weatherResult;
+    private ImageView backWIv;
     private WeatherResult currentWeatherResult;
-
     private double lat = 0;
     private double lon = 0;
     private String units = "metric";
@@ -55,6 +56,7 @@ public class WeatherActivity extends AppCompatActivity {
         currentWeatherWind = findViewById(R.id.windCurrentWeitherTvId);
         //currentWeatherHumidity = findViewById(R.id.humidityCurrentWeitherTvId);
         currentWeatherLocatonTv = findViewById(R.id.cityStatusCurrentTvId);
+        backWIv =findViewById(R.id.backWId);
 
         weatherResult = new WeatherResult();
         recyclerView = findViewById(R.id.weatherRecyclerViewId);
@@ -66,6 +68,13 @@ public class WeatherActivity extends AppCompatActivity {
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
+
+        backWIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
     }

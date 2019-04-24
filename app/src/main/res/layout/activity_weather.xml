@@ -8,6 +8,7 @@
     android:weightSum="4"
     tools:context=".WeatherActivity">
 
+
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -16,13 +17,21 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="10dp">
+        <ImageView
+            android:layout_gravity="top"
+            android:tint="@color/white"
+            android:padding="10dp"
+            android:id="@+id/backWId"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
         <ImageView
             android:id="@+id/weatherCurrentIconIvId"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
 
-            android:layout_height="150dp"
+            android:layout_height="110dp"
             android:layout_marginTop="8dp"
             android:src="@mipmap/ic_launcher" />
 

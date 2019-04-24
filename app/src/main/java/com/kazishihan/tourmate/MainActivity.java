@@ -209,6 +209,14 @@ public class MainActivity extends AppCompatActivity
 //            fragmentTransaction.commit();
 
         }
+        else if (id == R.id.nav_Home) {
+            DashBoardFragment dashBoardFragment = new DashBoardFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout_id, dashBoardFragment);
+            fragmentTransaction.commit();
+
+        }
 
         else if (id == R.id.nav_share) {
 

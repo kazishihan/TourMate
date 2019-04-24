@@ -1,4 +1,5 @@
 package com.kazishihan.tourmate.Fragment;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -90,7 +92,7 @@ public class DashBoardFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     private List<IndividualTrip> list;
-    private  List<IndividualTrip> filterList;
+    private List<IndividualTrip> filterList;
     private TripAdapter tripAdapter;
     //private Context context;
     private FirebaseAuth firebaseAuth;
@@ -99,7 +101,7 @@ public class DashBoardFragment extends Fragment {
     private long fromdateMs;
     private long fromdateMs1;
     private long todateMs;
-    private long todateMss =Long.valueOf("2592000000");
+    private long todateMss = Long.valueOf("2592000000");
     ////////////////
 
     private TextView fromDateTv, toDateTv;
@@ -120,16 +122,16 @@ public class DashBoardFragment extends Fragment {
     private ExpenseAdapter expenseAdapter;
     //private Context context;
     private FirebaseAuth firebaseAuth1;
-   // private BottomSheet_AddTrip bottomSheet_addTrip;
+    // private BottomSheet_AddTrip bottomSheet_addTrip;
 
 
-    private CardView nearmeCv,weatherCV,ticketCv,allTripsCv;
+    private CardView nearmeCv, weatherCV, ticketCv, allTripsCv;
 
 
     private NumberFormat nf = new DecimalFormat("##.###");
     //int total;
 
-    private TextView currentBalanceTvId,expensePersentageTv,budExTv;
+    private TextView currentBalanceTvId, expensePersentageTv, budExTv;
 
     ProgressBar progressBar;
 
@@ -161,10 +163,10 @@ public class DashBoardFragment extends Fragment {
 
         balanceLayout = view.findViewById(R.id.linlayID);
 
-        nearmeCv=view.findViewById(R.id.nearme_CardViewId);
-        weatherCV=view.findViewById(R.id.weather_CardViewId);
-        ticketCv=view.findViewById(R.id.ticket_CardViewId);
-        allTripsCv=view.findViewById(R.id.allTours_CardViewId);
+        nearmeCv = view.findViewById(R.id.nearme_CardViewId);
+        weatherCV = view.findViewById(R.id.weather_CardViewId);
+        ticketCv = view.findViewById(R.id.ticket_CardViewId);
+        allTripsCv = view.findViewById(R.id.allTours_CardViewId);
         fab = view.findViewById(R.id.fab);
 
         allTripsCv.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +196,7 @@ public class DashBoardFragment extends Fragment {
         weatherCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),WeatherActivity.class);
+                Intent intent = new Intent(getContext(), WeatherActivity.class);
                 startActivity(intent);
             }
         });
@@ -205,19 +207,17 @@ public class DashBoardFragment extends Fragment {
                 startActivity(intent);
             }
         });
-    ticketCv.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            TicketFragment ticketFragment = new TicketFragment();
-            FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.addToBackStack("dashboard");
-            fragmentTransaction.replace(R.id.frame_layout_id, ticketFragment);
-            fragmentTransaction.commit();
-        }
-    });
-
-
+        ticketCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TicketFragment ticketFragment = new TicketFragment();
+                FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack("dashboard");
+                fragmentTransaction.replace(R.id.frame_layout_id, ticketFragment);
+                fragmentTransaction.commit();
+            }
+        });
 
 
         //////dfadfadfaf//////
@@ -237,7 +237,7 @@ public class DashBoardFragment extends Fragment {
         fromDatepicked = view.findViewById(R.id.fromDatePickDashboadLayoutId);
         toDatepicked = view.findViewById(R.id.toDatePickDashboardID);
 
-       // viewAllTripsTv = view.findViewById(R.id.viewAllTrips);
+        // viewAllTripsTv = view.findViewById(R.id.viewAllTrips);
         ///////////////
 
         LinearLayoutManager layoutManager
@@ -253,14 +253,11 @@ public class DashBoardFragment extends Fragment {
         budExTv = view.findViewById(R.id.budExTvId);
 
 
-
         //eventId = getArguments().getString("message");
         //Toast.makeText(getContext(), "get" + eventId, Toast.LENGTH_SHORT).show();
 
 
         progressBar = view.findViewById(R.id.progressBar);
-
-
 
 
         ///////////////////////////////////////
@@ -291,8 +288,8 @@ public class DashBoardFragment extends Fragment {
         int year1 = calendar.get(calendar.YEAR);
         int month1 = calendar.get(calendar.MONTH);
         int day1 = calendar.get(calendar.DAY_OF_MONTH);
-        month1 = month1+1;
-        day1=day1+30;
+        month1 = month1 + 1;
+        day1 = day1 + 30;
         String selectedtoDate = year1 + "/" + month1 + "/" + day1 + " 23:59:59";
 
         SimpleDateFormat todateandTimeSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -300,7 +297,7 @@ public class DashBoardFragment extends Fragment {
 
         Date date1 = new Date();
 
-        date1 =null;
+        date1 = null;
         try {
             date1 = todateandTimeSDF.parse(selectedtoDate);
         } catch (ParseException e) {
@@ -308,18 +305,12 @@ public class DashBoardFragment extends Fragment {
         }
 
         // long days = (int) TimeUnit.DAYS.convert(2592000000, TimeUnit.MILLISECONDS);
-        todateMs =date1.getTime();
+        todateMs = date1.getTime();
         // todateMs=todateMs+todateMss;
 
         //toDateTv.setText(dateSDF.format(date1));
 
         /////////
-
-
-
-
-
-
 
 
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
@@ -369,11 +360,10 @@ public class DashBoardFragment extends Fragment {
                         fromdateMs1 = date1.getTime();
 
 
-                        if(flong <= fromdateMs1 && tlong>=fromdateMs1)
-                        {
-                            IndividualTrip trip =data.child("info").getValue(IndividualTrip.class);
+                        if (flong <= fromdateMs1 && tlong >= fromdateMs1) {
+                            IndividualTrip trip = data.child("info").getValue(IndividualTrip.class);
                             filterList.add(trip);
-                         //eventId= trip.getTrip_id();
+                            //eventId= trip.getTrip_id();
 
                         }
 
@@ -381,20 +371,17 @@ public class DashBoardFragment extends Fragment {
                     }
                     // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
 
-                    if(filterList.size()==0)
-                    {
+                    if (filterList.size() == 0) {
                         viewAllTrip();
                         balanceLayout.setVisibility(View.GONE);
                         triprecyclerView.setVisibility(view.GONE);
                         return;
 
-                    }
-                    else{
+                    } else {
                         filterList.get(0).getTrip_id();
                     }
-                  setEventId(filterList.get(0).getTrip_id().toString());
-                    Toast.makeText(getContext(), "testttttt"+eventId, Toast.LENGTH_SHORT).show();
-
+                    setEventId(filterList.get(0).getTrip_id().toString());
+                    Toast.makeText(getContext(), "testttttt" + eventId, Toast.LENGTH_SHORT).show();
 
 
                     firebaseDatabase = FirebaseDatabase.getInstance();
@@ -403,8 +390,6 @@ public class DashBoardFragment extends Fragment {
                     expenseList = new ArrayList<>();
 
                     CreateProgressBar();
-
-
 
 
                     dataB = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
@@ -473,12 +458,8 @@ public class DashBoardFragment extends Fragment {
 ////fvdfbsfb//////
 
 
-
-
-
-
 ///////////////////////////////////////////////////
-        currentWeatherDiscription =view.findViewById(R.id.cityNameCurrentTvId);
+        currentWeatherDiscription = view.findViewById(R.id.cityNameCurrentTvId);
         currentWeatherIcon = view.findViewById(R.id.weatherCurrentIconIvId);
         currentWeathertemp = view.findViewById(R.id.tempCurrentWeitherTvId);
         currentWeatherWind = view.findViewById(R.id.windCurrentWeitherTvId);
@@ -501,7 +482,6 @@ public class DashBoardFragment extends Fragment {
     }
 
     private void viewAllTrip() {
-
 
 
         database1 = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
@@ -533,9 +513,6 @@ public class DashBoardFragment extends Fragment {
     }
 
 
-
-
-
     private void getMyLocation() {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -548,10 +525,9 @@ public class DashBoardFragment extends Fragment {
         locationTask.addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     Location location = task.getResult();
-                    url =String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s",location.getLatitude(),location.getLongitude(),units,getResources().getString(R.string.appid));
+                    url = String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s", location.getLatitude(), location.getLongitude(), units, getResources().getString(R.string.appid));
                     // Toast.makeText(WeatherActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
                     getWeatherUpdate();
                 }
@@ -563,30 +539,29 @@ public class DashBoardFragment extends Fragment {
 
     private void getWeatherUpdate() {
 
-        IOpenWeatherMap iOpenWeatherMap= RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
+        IOpenWeatherMap iOpenWeatherMap = RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
 
 //        String url =String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s",lat,lon,units,getResources().getString(R.string.appid));
         //"forecast?lat=23.7533312&lon=90.3769738&units=metric&appid=a0e0d52b2dbb8228d3f19466bb398fd0"
 
 
-        Call<WeatherResult> weatherResultCall= iOpenWeatherMap.getWeatherData(url);
+        Call<WeatherResult> weatherResultCall = iOpenWeatherMap.getWeatherData(url);
 
         weatherResultCall.enqueue(new Callback<WeatherResult>() {
             @Override
             public void onResponse(Call<WeatherResult> call, Response<WeatherResult> response) {
-                if(response.code()==200)
-                {
+                if (response.code() == 200) {
                     weatherResult = response.body();
                     currentWeatherResult = weatherResult;
 
 
-                    currentWeatherDiscription.setText(""+weatherResult.getList().get(2).getWeather().get(0).getDescription());
+                    currentWeatherDiscription.setText("" + weatherResult.getList().get(2).getWeather().get(0).getDescription());
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
                             .append(weatherResult.getList().get(2).getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
-                    currentWeathertemp.setText("   "+weatherResult.getList().get(2).getMain().getTemp()+"°C");
-                    currentWeatherWind.setText("Wind :"+weatherResult.getList().get(0).getWind().getSpeed()+" km/h");
-                    currentWeatherLocatonTv.setText(""+weatherResult.getCity().getName());
+                    currentWeathertemp.setText("   " + weatherResult.getList().get(2).getMain().getTemp() + "°C");
+                    currentWeatherWind.setText("Wind :" + weatherResult.getList().get(0).getWind().getSpeed() + " km/h");
+                    currentWeatherLocatonTv.setText("" + weatherResult.getCity().getName());
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -602,20 +577,15 @@ public class DashBoardFragment extends Fragment {
     private void checkBalance(int total, int bud) {
 
         double consumed2 = (Double.valueOf(expenditure) * 100) / Double.valueOf(budget);
-        expensePersentageTv.setText(String.valueOf(nf.format(consumed2))+"%");
-        final int cBalance = bud-total;
-        currentBalanceTvId.setText(String.valueOf(cBalance)+ " BDT");
+        expensePersentageTv.setText(String.valueOf(nf.format(consumed2)) + "%");
+        final int cBalance = bud - total;
+        currentBalanceTvId.setText(String.valueOf(cBalance) + " BDT");
 //        totalBudgetTv.setText("Budget: "+bud+" BDT");
 //        totalexpenseTv.setText("Total Expense: "+total+" BDT");
-        budExTv.setText(total+"/"+bud);
-
+        budExTv.setText(total + "/" + bud);
 
 
         // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
-
-
-
-
 
 
     }

@@ -3,12 +3,19 @@
 <RelativeLayout
 
     android:layout_width="match_parent"
+    android:background="@color/mainColor"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent">
 
-
-
-
+    <ImageView
+        android:tint="@color/white"
+        android:padding="8dp"
+        android:id="@+id/backMId"
+        android:src="@drawable/back"
+        android:onClick="onClick"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -21,16 +28,17 @@
         android:layout_below="@+id/B_hopistals" />
 
     <Button
+        android:layout_below="@+id/backMId"
         android:textColor="@color/white"
         android:background="@color/mainColor"
         android:id="@+id/B_hopistals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:onClick="onClick"
         android:text="Atm" />
 
     <Button
+        android:layout_below="@+id/backMId"
         android:textColor="@color/white"
         android:background="@color/mainColor"
         android:id="@+id/B_schools"
@@ -41,6 +49,7 @@
         android:text="Bank" />
 
     <Button
+        android:layout_below="@+id/backMId"
         android:textColor="@color/white"
         android:background="@color/mainColor"
         android:id="@+id/B_restaurants"
@@ -61,5 +70,7 @@
         android:layout_toEndOf="@+id/B_restaurants"
         android:onClick="onClick"
         android:text="Hospital" />
+
+
 
 </RelativeLayout>
