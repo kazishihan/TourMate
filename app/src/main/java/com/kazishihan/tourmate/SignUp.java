@@ -1,10 +1,9 @@
 package com.kazishihan.tourmate;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,13 +13,25 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class SignUp extends AppCompatActivity {
 
@@ -32,6 +43,15 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private StorageReference postimagesreference;
+    private String savecurrentdate, savecurrenttime, postrandomname, downloadurl, currentuser;
+    private String imageUrl;
+    private ProgressDialog loadinbar;
+
+    String firstName;
+    String lastName ;
+    String email;
+    String password ;
+    String confirmPassword ;
 
     private static final int Gallery_Pick = 1;
     private Uri ImageUri;
@@ -50,19 +70,47 @@ public class SignUp extends AppCompatActivity {
         imageView = findViewById(R.id.cameraSignUpIvId);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        loadinbar = new ProgressDialog(this);
 
         postimagesreference = FirebaseStorage.getInstance().getReference();
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGalary();
+            }
+        });
 
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String firstName = fnameET.getText().toString();
-                String lastName = lnameEt.getText().toString();
-                String email = emailEt.getText().toString();
-                String password = passwordEt.getText().toString();
-                String confirmPassword = confirmpassEt.getText().toString();
+                 firstName = fnameET.getText().toString();
+                lastName = lnameEt.getText().toString();
+                email = emailEt.getText().toString();
+                 password = passwordEt.getText().toString();
+                 confirmPassword = confirmpassEt.getText().toString();
+
+
+                Calendar callForDate = Calendar.getInstance();
+                SimpleDateFormat currentdate = new SimpleDateFormat("dd-MMM-yyyy");
+                savecurrentdate = currentdate.format(callForDate.getTime());
+
+                Calendar callfortime = Calendar.getInstance();
+                SimpleDateFormat currenttime = new SimpleDateFormat("HH:mm");
+                savecurrenttime = currenttime.format(callForDate.getTime());
+
+                postrandomname = savecurrentdate + savecurrenttime;
+
+                //signUpWithEmailAndPassword(firstName, lastName, email, password);
+
+
+
+
+
+
+
                 if (password.length() < 6) {
                     Toast.makeText(SignUp.this, "password would be upto 6 charecter", Toast.LENGTH_SHORT).show();
                     return;
@@ -78,7 +126,42 @@ public class SignUp extends AppCompatActivity {
 
                     if (password.contains(confirmPassword)) {
 
-                        signUpWithEmailAndPassword(firstName, lastName, email, password);
+                        if (ImageUri == null) {
+                            Toast.makeText(SignUp.this, "Please select an Image", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            loadinbar.setTitle("SignUp");
+                            loadinbar.setMessage("Signing up");
+                            loadinbar.show();
+                            loadinbar.setCanceledOnTouchOutside(true);
+
+                            final StorageReference filepath = FirebaseStorage.getInstance().getReference().child("Post Images").child(ImageUri.getLastPathSegment() + postrandomname + ".jpg");
+                            filepath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                    if (task.isSuccessful()) {
+//                    Task<Uri> downloadUrl = task.getResult().getMetadata().getReference().getDownloadUrl();
+//                    downloadurl = downloadUrl.toString();
+//                    Toast.makeText(AddMemory.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+
+                                        Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                downloadurl = uri.toString();
+                                                signUpWithEmailAndPassword(firstName, lastName, email, password,downloadurl);
+                                                // savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl, savecurrentdate, savecurrenttime));
+                                            }
+                                        });
+
+
+                                        //savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl));
+                                    }
+                                }
+                            });
+
+                        }
+
 
 
                     } else {
@@ -90,26 +173,31 @@ public class SignUp extends AppCompatActivity {
                 } else {
                     Toast.makeText(SignUp.this, "Invalid Email address", Toast.LENGTH_SHORT).show();
                 }
-
+//
 
             }
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGalary();
-            }
-        });
+
 
     }
 
 
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
 
 
 
-
-    private void signUpWithEmailAndPassword(final String firstName, String lastName, String email, final String password) {
+    private void signUpWithEmailAndPassword(final String firstName, String lastName, String email, final String password, final String image) {
 
         final User user = new User(firstName, lastName, email);
 
@@ -120,6 +208,7 @@ public class SignUp extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     String userId = firebaseAuth.getCurrentUser().getUid();
                     user.setUserId(userId);
+                    user.setProfilePhoto(image);
 
                     DatabaseReference databaseReference = firebaseDatabase.getReference().child("UserList").child(userId);
 
@@ -133,6 +222,8 @@ public class SignUp extends AppCompatActivity {
                                 confirmpassEt.setText("");
                                 fnameET.setText("");
                                 lnameEt.setText("");
+                                imageView.setVisibility(View.INVISIBLE);
+                                loadinbar.dismiss();
                                 Toast.makeText(SignUp.this, "Sign Up success", Toast.LENGTH_SHORT).show();
                                // Intent intent = new Intent(SignUp.this, LoginActivity.class);
                                // startActivity(intent);
@@ -149,7 +240,6 @@ public class SignUp extends AppCompatActivity {
 
 
     }
-
 
     private void openGalary() {
         Intent intent = new Intent();
@@ -168,7 +258,5 @@ public class SignUp extends AppCompatActivity {
             imageView.setImageURI(ImageUri);
         }
     }
-
-
 
 }

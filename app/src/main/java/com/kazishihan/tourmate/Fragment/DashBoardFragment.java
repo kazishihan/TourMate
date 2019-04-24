@@ -370,6 +370,8 @@ public class DashBoardFragment extends Fragment {
                         }
 
 
+
+
                     }
                     // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
 
@@ -445,6 +447,8 @@ public class DashBoardFragment extends Fragment {
                     tripAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+                    balanceLayout.setVisibility(View.GONE);
+                    triprecyclerView.setVisibility(view.GONE);
                 }
             }
 

@@ -2,6 +2,7 @@ package com.kazishihan.tourmate;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button signinBtn;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    private ProgressDialog loadinbar;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         forgotPasswordTv = findViewById(R.id.forgotpassTvid);
+        loadinbar = new ProgressDialog(this);
 
 
 
@@ -83,6 +86,10 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
 
                     if (emailEt.getText().toString().trim().matches(emailPattern)) {
+                        loadinbar.setTitle("SignIn");
+                        loadinbar.setMessage("Signing In");
+                        loadinbar.show();
+                        loadinbar.setCanceledOnTouchOutside(true);
                         signInWithEmailAndPassword(email, password);
 
                     } else {
@@ -109,6 +116,8 @@ public class LoginActivity extends AppCompatActivity {
        forgotPasswordTv.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
+
 
                final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                LayoutInflater layoutInflater = LayoutInflater.from(LoginActivity.this);
@@ -174,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
+                    loadinbar.dismiss();
                     Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this,splashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

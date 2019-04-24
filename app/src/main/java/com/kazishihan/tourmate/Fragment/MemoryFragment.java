@@ -116,7 +116,7 @@ public class MemoryFragment extends Fragment {
                         MemoryClass memoryClass = data.getValue(MemoryClass.class);
                         memorylist.add(memoryClass);
                     }
-                    Toast.makeText(getContext(), "" + memorylist.size(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "" + memorylist.size(), Toast.LENGTH_SHORT).show();
                     momentAdapter = new MomentAdapter(memorylist, getContext());
                     memoryRecycler.setAdapter(momentAdapter);
                     momentAdapter.notifyDataSetChanged();

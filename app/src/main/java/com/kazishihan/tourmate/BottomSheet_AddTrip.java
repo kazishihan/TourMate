@@ -174,6 +174,7 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                        dismiss();
                     }
                 }
             });
@@ -190,6 +191,7 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                        dismiss();
                     }
                 }
             });

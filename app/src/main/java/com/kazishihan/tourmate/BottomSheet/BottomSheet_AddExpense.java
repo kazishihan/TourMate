@@ -147,6 +147,7 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                        dismiss();
                     }
                 }
             });
@@ -165,6 +166,7 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                        dismiss();
                     }
                 }
             });

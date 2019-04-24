@@ -6,6 +6,7 @@ public class User {
     private String FirstName;
     private String LastName;
     private String Email;
+    private String profilePhoto;
 
     public User(String firstName, String lastName, String email) {
         FirstName = firstName;
@@ -13,6 +14,20 @@ public class User {
         Email = email;
     }
 
+    public User(String firstName, String lastName, String email, String profilePhoto) {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        this.profilePhoto = profilePhoto;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
 
     public String getUserId() {
         return UserId;

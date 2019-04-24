@@ -1,6 +1,7 @@
 package com.kazishihan.tourmate;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import com.kazishihan.tourmate.Fragment.TicketFragment;
 import com.kazishihan.tourmate.Fragment.TripFragment;
 import com.kazishihan.tourmate.Fragment.WalletFragment;
 import com.kazishihan.tourmate.MapAction.MapsActivity;
+import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         final TextView userNameHeaderTv = (TextView) header.findViewById(R.id.userNameTvId);
         final TextView userEmailHeaderTv = (TextView) header.findViewById(R.id.userEmailTvId);
+        final ImageView userPhotoIV=(ImageView)header.findViewById(R.id.imageView) ;
 
         database = FirebaseDatabase.getInstance().getReference().child("UserList");
         database.child(currentuser).addValueEventListener(new ValueEventListener() {
@@ -83,7 +87,12 @@ public class MainActivity extends AppCompatActivity
                  String fname= dataSnapshot.child("firstName").getValue().toString();
                  String lname = dataSnapshot.child("lastName").getValue().toString();
                  String email = dataSnapshot.child("email").getValue().toString();
+                 String pfPhoto= dataSnapshot.child("profilePhoto").getValue().toString();
                  String name = fname+" "+lname;
+                    Uri myUri = Uri.parse(pfPhoto);
+                    Picasso.get().load(myUri).into(userPhotoIV);
+
+
 
                  userNameHeaderTv.setText(name);
                  userEmailHeaderTv.setText(email);
