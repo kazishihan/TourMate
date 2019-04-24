@@ -1,6 +1,7 @@
 package com.kazishihan.tourmate;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
     private WeatherResult currentWeatherResult;
     private double lat = 0;
     private double lon = 0;
+    private ProgressDialog loadinbar;
     private String units = "metric";
     String url;
 
@@ -49,7 +51,7 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-
+        loadinbar = new ProgressDialog(WeatherActivity.this);
         currentWeatherDiscription = findViewById(R.id.cityNameCurrentTvId);
         currentWeatherIcon = findViewById(R.id.weatherCurrentIconIvId);
         currentWeathertemp = findViewById(R.id.tempCurrentWeitherTvId);
@@ -96,6 +98,10 @@ public class WeatherActivity extends AppCompatActivity {
                     Location location = task.getResult();
                     url =String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s",location.getLatitude(),location.getLongitude(),units,getResources().getString(R.string.appid));
                    // Toast.makeText(WeatherActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
+                    loadinbar.setTitle("Weather");
+                    loadinbar.setMessage("Loading 5 days weather");
+                    loadinbar.show();
+                    loadinbar.setCanceledOnTouchOutside(true);
                     getWeatherUpdate();
                 }
 
@@ -134,6 +140,7 @@ public class WeatherActivity extends AppCompatActivity {
                     currentWeathertemp.setText("   "+weatherResult.getList().get(2).getMain().getTemp()+"°C");
                     currentWeatherWind.setText("Wind :"+weatherResult.getList().get(2).getWind().getSpeed()+" km/h");
                     currentWeatherLocatonTv.setText(""+weatherResult.getCity().getName());
+                    loadinbar.dismiss();
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
                 }
             }

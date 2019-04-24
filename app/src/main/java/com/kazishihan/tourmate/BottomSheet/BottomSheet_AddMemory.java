@@ -2,6 +2,7 @@ package com.kazishihan.tourmate.BottomSheet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -54,6 +55,9 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
     DatabaseReference userDB;
     private MemoryClass memoryClass;
     String cID;
+    private Bitmap bitmapcam;
+    private ProgressDialog loadinbar;
+
 
     String mtitle, mdesc;
     private ProgressDialog progressDialog;
@@ -68,11 +72,12 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.bottom_add_memory, container, false);
 
-
+        loadinbar = new ProgressDialog(getContext());
         uploadimae = view.findViewById(R.id.image_icon_BottomId);
         memories_title = view.findViewById(R.id.imageCaptionBottomId);
         memories_desc = view.findViewById(R.id.imageDescriptionBottomId);
         uploadMemory = view.findViewById(R.id.uploadImageIdbtn);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         postimagesreference = FirebaseStorage.getInstance().getReference();
@@ -128,6 +133,10 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
 //            progressDialog.setMessage("Updateing new post");
 //            progressDialog.show();
 //            progressDialog.setCanceledOnTouchOutside(true);
+            loadinbar.setTitle("Add new memory");
+            loadinbar.setMessage("Uploading new memory");
+            loadinbar.show();
+            loadinbar.setCanceledOnTouchOutside(true);
             storingImagetostorage();
         }
     }
@@ -161,6 +170,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
                         }
                     });
 
+
                     //savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl));
                 }
             }
@@ -168,7 +178,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
 
     }
 
-    private void savingPostInformationtoDatabase(MemoryClass memoryClass) {
+    private void savingPostInformationtoDatabase(final MemoryClass memoryClass) {
 
         DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser).child("Events").child(cID);
 
@@ -180,6 +190,11 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     // Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+                    loadinbar.dismiss();
+                    dismiss();
+//                    uploadimae.setImageBitmap(bitmapcam);
+//                    memories_title.setText("");
+//                    memories_desc.setText("");
 
                 }
             }

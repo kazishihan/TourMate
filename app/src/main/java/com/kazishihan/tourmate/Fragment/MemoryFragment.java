@@ -2,6 +2,7 @@ package com.kazishihan.tourmate.Fragment;
 
 
 import android.os.Bundle;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,7 @@ public class MemoryFragment extends Fragment {
     // private BottomSheet_AddMemory bottomSheet_addMemory;
 
 
+
     private DatabaseReference database;
     private MomentAdapter momentAdapter;
     private List<MemoryClass> memorylist;
@@ -46,6 +48,8 @@ public class MemoryFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
 
     private RecyclerView memoryRecycler;
+
+    private ProgressDialog loadinbar;
 
     public MemoryFragment() {
         // Required empty public constructor
@@ -68,9 +72,16 @@ public class MemoryFragment extends Fragment {
         currentuser = firebaseAuth.getCurrentUser().getUid();
         floatingActionButtonMemory = view.findViewById(R.id.fab);
         memoryRecycler = view.findViewById(R.id.memoryRecyclerView);
+        loadinbar = new ProgressDialog(getContext());
+
 
 
         memoryRecycler.setLayoutManager(new LinearLayoutManager(null));
+
+        loadinbar.setTitle("Add new Post");
+        loadinbar.setMessage("Updating new post");
+        loadinbar.show();
+        loadinbar.setCanceledOnTouchOutside(true);
         //Toast.makeText(this, ""+eventId, Toast.LENGTH_SHORT).show();
 
 //
@@ -94,6 +105,7 @@ public class MemoryFragment extends Fragment {
         });
 
 
+
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(eventId);
         database.child("Memories").addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,12 +115,12 @@ public class MemoryFragment extends Fragment {
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
                         MemoryClass memoryClass = data.getValue(MemoryClass.class);
                         memorylist.add(memoryClass);
-
                     }
                     Toast.makeText(getContext(), "" + memorylist.size(), Toast.LENGTH_SHORT).show();
                     momentAdapter = new MomentAdapter(memorylist, getContext());
                     memoryRecycler.setAdapter(momentAdapter);
                     momentAdapter.notifyDataSetChanged();
+                    loadinbar.dismiss();
                 } else {
                     Toast.makeText(getContext(), "Empty database", Toast.LENGTH_SHORT).show();
                 }

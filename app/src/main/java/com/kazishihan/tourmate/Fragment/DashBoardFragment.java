@@ -1,6 +1,7 @@
 package com.kazishihan.tourmate.Fragment;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -147,6 +148,7 @@ public class DashBoardFragment extends Fragment {
 
     int cBudget;
     int cExpense;
+    private ProgressDialog loadinbar;
 
 
     public DashBoardFragment() {
@@ -160,7 +162,7 @@ public class DashBoardFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_dash_board, container, false);
 
-
+        loadinbar = new ProgressDialog(getActivity());
         balanceLayout = view.findViewById(R.id.linlayID);
 
         nearmeCv = view.findViewById(R.id.nearme_CardViewId);
@@ -381,7 +383,7 @@ public class DashBoardFragment extends Fragment {
                         filterList.get(0).getTrip_id();
                     }
                     setEventId(filterList.get(0).getTrip_id().toString());
-                    Toast.makeText(getContext(), "testttttt" + eventId, Toast.LENGTH_SHORT).show();
+///                    Toast.makeText(getContext(), "testttttt" + eventId, Toast.LENGTH_SHORT).show();
 
 
                     firebaseDatabase = FirebaseDatabase.getInstance();
@@ -529,6 +531,10 @@ public class DashBoardFragment extends Fragment {
                     Location location = task.getResult();
                     url = String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s", location.getLatitude(), location.getLongitude(), units, getResources().getString(R.string.appid));
                     // Toast.makeText(WeatherActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
+                    loadinbar.setTitle("Loading");
+                    loadinbar.setMessage("Please wait");
+                    loadinbar.show();
+                    loadinbar.setCanceledOnTouchOutside(true);
                     getWeatherUpdate();
                 }
 
@@ -562,6 +568,7 @@ public class DashBoardFragment extends Fragment {
                     currentWeathertemp.setText("   " + weatherResult.getList().get(2).getMain().getTemp() + "°C");
                     currentWeatherWind.setText("Wind :" + weatherResult.getList().get(0).getWind().getSpeed() + " km/h");
                     currentWeatherLocatonTv.setText("" + weatherResult.getCity().getName());
+                    loadinbar.dismiss();
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
                 }
             }

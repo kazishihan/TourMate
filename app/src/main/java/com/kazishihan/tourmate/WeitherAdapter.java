@@ -1,5 +1,6 @@
 package com.kazishihan.tourmate;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
 
     Context context;
     WeatherResult weatherResult;
+    private ProgressDialog loadinbar;
 
     public WeitherAdapter(Context context, WeatherResult weatherResult) {
         this.context = context;
@@ -36,6 +38,8 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
 
     @Override
     public void onBindViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        loadinbar = new ProgressDialog(context);
+
         Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
                 .append(weatherResult.getList().get(i).getWeather().get(0).getIcon())
                 .append(".png").toString()).into(viewGroup.weitherIcon);
@@ -52,6 +56,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
         viewGroup.weitherDescription.setText("Status : " + weatherResult.getList().get(i).getWeather().get(0).getDescription());
         viewGroup.weitherTemp.setText(("Temp  : " + weatherResult.getList().get(i).getMain().getTemp() + " °C"));
         viewGroup.weitherWind.setText("Wind : " + weatherResult.getList().get(i).getWind().getSpeed() + " km/h");
+        loadinbar.dismiss();
         //viewGroup.weatherLoactionTv.setText(""+weatherResult.getCity().getCountry());
         //viewGroup.weitherHumidity.setText(("Humidity :"+weatherResult.getList().get(i).getMain().getHumidity()+" %"));
     }

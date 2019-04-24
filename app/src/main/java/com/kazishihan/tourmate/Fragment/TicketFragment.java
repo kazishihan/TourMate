@@ -1,6 +1,7 @@
 package com.kazishihan.tourmate.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -19,6 +20,8 @@ import com.kazishihan.tourmate.R;
 public class TicketFragment extends Fragment {
     WebView Wview;
 
+
+
     public TicketFragment() {
         // Required empty public constructor
     }
@@ -29,11 +32,13 @@ public class TicketFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_ticket, container, false);
-
         Wview = (WebView) view.findViewById(R.id.webView);
+
+
         Wview.getSettings().setJavaScriptEnabled(true);
         Wview.setWebViewClient(new MyBrowser());
         Wview.loadUrl("http://shohoz.com/");
+
         Wview.setWebChromeClient(new WebChromeClient());
 
 

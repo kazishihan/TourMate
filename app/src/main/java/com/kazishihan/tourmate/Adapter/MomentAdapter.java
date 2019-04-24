@@ -35,6 +35,8 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
     private List<MemoryClass> memoryClasses;
     Context context;
 
+
+
     private Picasso picasso;
 
     public MomentAdapter(List<MemoryClass> memoryClasses, Context context) {
