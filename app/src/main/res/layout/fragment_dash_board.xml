@@ -32,9 +32,8 @@
                     android:id="@+id/weatherCurrentIconIvId"
                     android:layout_width="105dp"
                     android:layout_height="120dp"
-
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/ic_launcher" />
+                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,7 +51,6 @@
                             android:id="@+id/cityStatusCurrentTvId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Status"
                             android:textSize="30sp"
                             android:textStyle="bold" />
 
@@ -60,7 +58,6 @@
                             android:id="@+id/cityNameCurrentTvId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Status"
                             android:textSize="20sp" />
 
                         <!--<TextView-->
@@ -76,14 +73,13 @@
                             android:id="@+id/humidityCurrentWeitherTvId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Humidity: 88%"
+
                             android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/windCurrentWeitherTvId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wind:2.6km/h"
                             android:textSize="20sp" />
 
 
@@ -96,7 +92,7 @@
                         android:layout_height="wrap_content"
 
                         android:gravity="center"
-                        android:text="30*C"
+                        android:text="No weather data"
                         android:textColor="@android:color/holo_red_dark"
                         android:textSize="30sp"
                         android:textStyle="bold" />

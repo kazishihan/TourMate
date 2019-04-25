@@ -558,6 +558,7 @@ public class DashBoardFragment extends Fragment {
 
                 if(response.code()==200)
                 {
+
                     WeatherResponse weatherResponse = response.body();
                     currentWeathertemp.setText(String.valueOf(weatherResponse.getMain().getTemp())+"°C");
                     currentWeatherLocatonTv.setText(String.valueOf(weatherResponse.getName()));
@@ -579,6 +580,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
 
+             loadinbar.dismiss();
 
 
             }
