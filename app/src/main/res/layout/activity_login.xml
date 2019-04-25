@@ -46,9 +46,18 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
+            <!--<ImageView-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp" />-->
+
+            <TextView
+                android:textColor="@color/mainColor"
+                android:textStyle="italic"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:text="Tour Mate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -62,7 +71,8 @@
 
                     android:inputType="textEmailAddress"
                     android:hint="Email"
-
+                    android:drawableLeft="@drawable/email"
+                    android:drawableTint="@color/mainColor"
                     android:singleLine="true"
                     android:imeOptions="actionNext"
                     android:id="@+id/signInEmailEtId"
@@ -82,6 +92,8 @@
                     android:textColorHighlight="@color/white"
                     android:inputType="textPassword"
                     android:hint="password"
+                    android:drawableLeft="@drawable/lock"
+                    android:drawableTint="@color/mainColor"
                     android:imeOptions="actionDone"
                     android:singleLine="true"
                     android:id="@+id/signInPasswordEtId"

@@ -65,6 +65,8 @@
                 android:layout_marginRight="10dp">
 
                 <EditText
+                    android:drawableTint="@color/mainColor"
+                    android:drawableLeft="@drawable/email"
                     android:id="@+id/emailSignUpEtId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,6 +85,8 @@
                 android:layout_marginRight="10dp">
 
                 <EditText
+                    android:drawableTint="@color/mainColor"
+                    android:drawableLeft="@drawable/lock"
                     android:id="@+id/passwordSignUpEtId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,6 +105,8 @@
                 android:layout_marginRight="10dp">
 
                 <EditText
+                    android:drawableTint="@color/mainColor"
+                    android:drawableLeft="@drawable/lock"
                     android:id="@+id/confirmpasswordSignUpEtId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,6 +132,8 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:drawableTint="@color/mainColor"
+                        android:drawableLeft="@drawable/user"
                         android:id="@+id/firtnameSignUpEtId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -157,7 +165,8 @@
             <Button
                 android:textColor="@color/white"
                 android:id="@+id/SignUpbtnId"
-                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
