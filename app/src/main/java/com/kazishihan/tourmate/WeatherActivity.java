@@ -165,7 +165,6 @@ public class WeatherActivity extends AppCompatActivity {
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
                             .append(weatherResponse.getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
-
                 }
 
 

@@ -9,6 +9,7 @@
 
 
     <ImageView
+        android:id="@+id/cameraIvID"
         android:src="@drawable/camera_icon"
         android:layout_margin="20dp"
         android:layout_width="100dp"

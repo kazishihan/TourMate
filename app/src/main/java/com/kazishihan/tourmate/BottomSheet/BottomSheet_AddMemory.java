@@ -3,6 +3,7 @@ package com.kazishihan.tourmate.BottomSheet;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -34,6 +35,7 @@ import com.kazishihan.tourmate.Activity.MemoryActivity;
 import com.kazishihan.tourmate.Classes.MemoryClass;
 import com.kazishihan.tourmate.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -97,21 +99,33 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
         uploadimae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //openGalary();
+                openGalary();
                 //openGalary();
 
-//                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-//                View view = layoutInflater.inflate(R.layout.alart_camera_option, null);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                View view1=LayoutInflater.from(getContext()).inflate(R.layout.alart_camera_option,null);
 //
-//                builder.setView(view);
+//                builder.setView(view1);
 //                final Dialog dialog = builder.create();
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                View view1=LayoutInflater.from(getContext()).inflate(R.layout.alart_camera_option,null);
-
-                builder.setView(view1);
-                Dialog dialog = builder.create();
+//                dialog.show();
+//                ImageView opencamera,opengelery;
+//                opencamera=view1.findViewById(R.id.cameraIvID);
+//                opengelery=view1.findViewById(R.id.galleryIvID);
+//
+//                opengelery.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openGalary();
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                opencamera.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openCamera();
+//                    }
+//                });
 
 
             }
@@ -130,6 +144,13 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
 
 
         return view;
+    }
+
+    private void openCamera() {
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+
     }
 
 
@@ -239,6 +260,18 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             uploadimae.setImageURI(ImageUri);
         }
 
+        if (requestCode == 0) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+
+            //getImageUri(getContext(),bitmap);
+            String val = String.valueOf(bitmap);
+            ImageUri = Uri.parse(val);
+            uploadimae.setImageURI(ImageUri);
+
+        }
+
 
     }
+
+
 }

@@ -63,6 +63,107 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // User is signed out
 
+            signinBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String email = emailEt.getText().toString();
+                    String password = passwordEt.getText().toString();
+
+
+                    if (email.equals("") || password.equals("")) {
+                        Toast.makeText(LoginActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        if (emailEt.getText().toString().trim().matches(emailPattern)) {
+                            loadinbar.setTitle("SignIn");
+                            loadinbar.setMessage("Signing In");
+                            loadinbar.show();
+                            loadinbar.setCanceledOnTouchOutside(true);
+                            signInWithEmailAndPassword(email, password);
+
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Envalid Email", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }
+            });
+
+
+            registationTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(LoginActivity.this,SignUp.class);
+                    startActivity(intent);
+                }
+            });
+
+
+
+
+            ///////////alart dialo
+            forgotPasswordTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    LayoutInflater layoutInflater = LayoutInflater.from(LoginActivity.this);
+                    View view = layoutInflater.inflate(R.layout.alartdialog_fotget_password, null);
+
+                    builder.setView(view);
+                    final Dialog dialog = builder.create();
+                    dialog.show();
+
+                    final EditText email = view.findViewById(R.id.fotgetAlartDialogEmailEtId);
+                    TextView sendActin = view.findViewById(R.id.fotgetpassAlartDialogSendTvId);
+                    TextView cancel = view.findViewById(R.id.fotgetpassAlartDialogCancelTvId);
+
+                    final String forgetEmail = email.getText().toString();
+
+                    sendActin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (email.getText().toString().trim().matches(emailPattern)) {
+
+
+                                String emailAddress =email.getText().toString();
+
+                                firebaseAuth.sendPasswordResetEmail(emailAddress)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(LoginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Envalid Email", Toast.LENGTH_SHORT).show();
+                            }
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
+
         }
 
 
@@ -72,106 +173,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        signinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String email = emailEt.getText().toString();
-                String password = passwordEt.getText().toString();
-
-
-                if (email.equals("") || password.equals("")) {
-                    Toast.makeText(LoginActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    if (emailEt.getText().toString().trim().matches(emailPattern)) {
-                        loadinbar.setTitle("SignIn");
-                        loadinbar.setMessage("Signing In");
-                        loadinbar.show();
-                        loadinbar.setCanceledOnTouchOutside(true);
-                        signInWithEmailAndPassword(email, password);
-
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Envalid Email", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-        });
-
-
-       registationTv.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(LoginActivity.this,SignUp.class);
-               startActivity(intent);
-           }
-       });
-
-
-
-
-       ///////////alart dialo
-       forgotPasswordTv.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-
-
-               final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-               LayoutInflater layoutInflater = LayoutInflater.from(LoginActivity.this);
-               View view = layoutInflater.inflate(R.layout.alartdialog_fotget_password, null);
-
-               builder.setView(view);
-               final Dialog dialog = builder.create();
-               dialog.show();
-
-               final EditText email = view.findViewById(R.id.fotgetAlartDialogEmailEtId);
-               TextView sendActin = view.findViewById(R.id.fotgetpassAlartDialogSendTvId);
-               TextView cancel = view.findViewById(R.id.fotgetpassAlartDialogCancelTvId);
-
-               final String forgetEmail = email.getText().toString();
-
-               sendActin.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       if (email.getText().toString().trim().matches(emailPattern)) {
-
-
-                           String emailAddress =email.getText().toString();
-
-                           firebaseAuth.sendPasswordResetEmail(emailAddress)
-                                   .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                       @Override
-                                       public void onComplete(@NonNull Task<Void> task) {
-                                           if (task.isSuccessful()) {
-                                               Toast.makeText(LoginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
-                                           }
-                                           else
-                                           {
-                                               Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                                           }
-                                       }
-                                   });
-
-
-                       } else {
-                           Toast.makeText(LoginActivity.this, "Envalid Email", Toast.LENGTH_SHORT).show();
-                       }
-
-                       dialog.dismiss();
-                   }
-               });
-
-               cancel.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       dialog.dismiss();
-                   }
-               });
-           }
-       });
 
 
     }
