@@ -100,6 +100,8 @@ public class DashBoardFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private String currentuser;
 
+    private CardView cardView;
+
     private long fromdateMs;
     private long fromdateMs1;
     private long todateMs;
@@ -171,6 +173,8 @@ public class DashBoardFragment extends Fragment {
         ticketCv = view.findViewById(R.id.ticket_CardViewId);
         allTripsCv = view.findViewById(R.id.allTours_CardViewId);
         fab = view.findViewById(R.id.fab);
+
+        cardView = view.findViewById(R.id.weatherCardId);
 
         allTripsCv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -559,6 +563,7 @@ public class DashBoardFragment extends Fragment {
                 if(response.code()==200)
                 {
 
+
                     WeatherResponse weatherResponse = response.body();
                     currentWeathertemp.setText(String.valueOf(weatherResponse.getMain().getTemp())+"°C");
                     currentWeatherLocatonTv.setText(String.valueOf(weatherResponse.getName()));
@@ -568,6 +573,8 @@ public class DashBoardFragment extends Fragment {
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
                             .append(weatherResponse.getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
+
+                    cardView.setVisibility(View.VISIBLE);
 
                     loadinbar.dismiss();
 
@@ -579,6 +586,8 @@ public class DashBoardFragment extends Fragment {
 
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
+
+                cardView.setVisibility(View.INVISIBLE);
 
              loadinbar.dismiss();
 
