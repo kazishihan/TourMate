@@ -19,6 +19,7 @@ import com.kazishihan.tourmate.R;
  */
 public class TicketFragment extends Fragment {
     WebView Wview;
+    private ProgressDialog loadinbar;
 
 
 
@@ -33,15 +34,19 @@ public class TicketFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_ticket, container, false);
         Wview = (WebView) view.findViewById(R.id.webView);
-
+        loadinbar = new ProgressDialog(getContext());
 
         Wview.getSettings().setJavaScriptEnabled(true);
+
+        loadinbar.setTitle("Add new memory");
+        loadinbar.setMessage("Uploading new memory");
+        loadinbar.show();
+        loadinbar.setCanceledOnTouchOutside(true);
+
         Wview.setWebViewClient(new MyBrowser());
         Wview.loadUrl("http://shohoz.com/");
 
         Wview.setWebChromeClient(new WebChromeClient());
-
-
 
         return view;
     }
@@ -51,6 +56,7 @@ public class TicketFragment extends Fragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView Wview, String url) {
             Wview.loadUrl(url);
+             loadinbar.dismiss();
             return true;
         }
     }

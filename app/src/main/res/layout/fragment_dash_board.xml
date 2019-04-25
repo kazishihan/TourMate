@@ -42,7 +42,6 @@
 
                     <LinearLayout
 
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -58,7 +57,7 @@
                             android:id="@+id/cityNameCurrentTvId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <!--<TextView-->
 
@@ -74,13 +73,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/windCurrentWeitherTvId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
 
                     </LinearLayout>

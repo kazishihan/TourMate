@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Trip Name"
-                    android:textSize="23sp"
+                    android:textSize="20sp"
                     android:textColor="@color/white"
                     android:id="@+id/trip_name_id"/>
 
@@ -105,7 +105,7 @@
 
             <LinearLayout
                android:padding="5dp"
-                android:layout_margin="2dp"
+                android:layout_margin="3dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:weightSum="3"
@@ -147,6 +147,7 @@
                 <ImageView
                    android:id="@+id/popupTripBtnIvId"
                    android:padding="5dp"
+                    android:tint="@color/blue1"
                     android:src="@drawable/popup"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
