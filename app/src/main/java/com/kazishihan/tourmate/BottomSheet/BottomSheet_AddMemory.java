@@ -1,5 +1,7 @@
 package com.kazishihan.tourmate.BottomSheet;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -96,7 +98,22 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 //openGalary();
-                openGalary();
+                //openGalary();
+
+//                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+//                View view = layoutInflater.inflate(R.layout.alart_camera_option, null);
+//
+//                builder.setView(view);
+//                final Dialog dialog = builder.create();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view1=LayoutInflater.from(getContext()).inflate(R.layout.alart_camera_option,null);
+
+                builder.setView(view1);
+                Dialog dialog = builder.create();
+
+
             }
         });
 

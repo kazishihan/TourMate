@@ -41,6 +41,7 @@ import com.kazishihan.tourmate.BottomSheet.BottomSheet_AddExpense;
 import com.kazishihan.tourmate.BottomSheet_AddTrip;
 import com.kazishihan.tourmate.Classes.Expense;
 import com.kazishihan.tourmate.Classes.IndividualTrip;
+import com.kazishihan.tourmate.CurrentWeather.WeatherResponse;
 import com.kazishihan.tourmate.IOpenWeatherMap;
 import com.kazishihan.tourmate.MainActivity;
 import com.kazishihan.tourmate.MapAction.MapsActivity;
@@ -69,7 +70,7 @@ import retrofit2.Response;
  */
 public class DashBoardFragment extends Fragment {
 
-    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv;
+    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv,currentWeatherHumidity;
     private ImageView currentWeatherIcon;
 
     private RecyclerView recyclerView;
@@ -469,7 +470,7 @@ public class DashBoardFragment extends Fragment {
         currentWeatherIcon = view.findViewById(R.id.weatherCurrentIconIvId);
         currentWeathertemp = view.findViewById(R.id.tempCurrentWeitherTvId);
         currentWeatherWind = view.findViewById(R.id.windCurrentWeitherTvId);
-        //currentWeatherHumidity = findViewById(R.id.humidityCurrentWeitherTvId);
+        currentWeatherHumidity = view.findViewById(R.id.humidityCurrentWeitherTvId);
         currentWeatherLocatonTv = view.findViewById(R.id.cityStatusCurrentTvId);
 
         weatherResult = new WeatherResult();
@@ -533,7 +534,7 @@ public class DashBoardFragment extends Fragment {
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful()) {
                     Location location = task.getResult();
-                    url = String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s", location.getLatitude(), location.getLongitude(), units, getResources().getString(R.string.appid));
+                    url = String.format("weather?lat=%f&lon=%f&units=%s&appid=%s", location.getLatitude(), location.getLongitude(), units, getResources().getString(R.string.appid1));
                     // Toast.makeText(WeatherActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
                     loadinbar.setTitle("Loading");
                     loadinbar.setMessage("Please wait");
@@ -549,36 +550,36 @@ public class DashBoardFragment extends Fragment {
 
     private void getWeatherUpdate() {
 
-        IOpenWeatherMap iOpenWeatherMap = RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
-
-//        String url =String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s",lat,lon,units,getResources().getString(R.string.appid));
-        //"forecast?lat=23.7533312&lon=90.3769738&units=metric&appid=a0e0d52b2dbb8228d3f19466bb398fd0"
-
-
-        Call<WeatherResult> weatherResultCall = iOpenWeatherMap.getWeatherData(url);
-
-        weatherResultCall.enqueue(new Callback<WeatherResult>() {
+        IOpenWeatherMap weatherService= RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
+        Call<WeatherResponse> weatherResponseCall = weatherService.getWeatherData1(url);
+        weatherResponseCall.enqueue(new Callback<WeatherResponse>() {
             @Override
-            public void onResponse(Call<WeatherResult> call, Response<WeatherResult> response) {
-                if (response.code() == 200) {
-                    weatherResult = response.body();
-                    currentWeatherResult = weatherResult;
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
 
-
-                    currentWeatherDiscription.setText("" + weatherResult.getList().get(2).getWeather().get(0).getDescription());
+                if(response.code()==200)
+                {
+                    WeatherResponse weatherResponse = response.body();
+                    currentWeathertemp.setText(String.valueOf(weatherResponse.getMain().getTemp())+"°C");
+                    currentWeatherLocatonTv.setText(String.valueOf(weatherResponse.getName()));
+                    currentWeatherDiscription.setText(String.valueOf(weatherResponse.getWeather().get(0).getDescription()));
+                    currentWeatherHumidity.setText("Humidity: "+(String.valueOf(weatherResponse.getMain().getHumidity()))+"%");
+                    currentWeatherWind.setText("Wind       : "+(String.valueOf(weatherResponse.getWind().getSpeed()))+"km/h");
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
-                            .append(weatherResult.getList().get(2).getWeather().get(0).getIcon())
+                            .append(weatherResponse.getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
-                    currentWeathertemp.setText("   " + weatherResult.getList().get(2).getMain().getTemp() + "°C");
-                    currentWeatherWind.setText("Wind :" + weatherResult.getList().get(0).getWind().getSpeed() + " km/h");
-                    currentWeatherLocatonTv.setText("" + weatherResult.getCity().getName());
+
                     loadinbar.dismiss();
-                    //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
+
+
                 }
+
+
             }
 
             @Override
-            public void onFailure(Call<WeatherResult> call, Throwable t) {
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+
+
 
             }
         });

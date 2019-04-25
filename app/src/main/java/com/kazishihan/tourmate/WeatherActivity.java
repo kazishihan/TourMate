@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.kazishihan.tourmate.CurrentWeather.WeatherResponse;
 import com.kazishihan.tourmate.Weither.WeatherResult;
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +32,7 @@ import retrofit2.Response;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv;
+    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv,currentWeatherHumidity;
     private ImageView currentWeatherIcon;
 
     private RecyclerView recyclerView;
@@ -44,6 +45,7 @@ public class WeatherActivity extends AppCompatActivity {
     private ProgressDialog loadinbar;
     private String units = "metric";
     String url;
+    String url1;
 
     FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -56,7 +58,7 @@ public class WeatherActivity extends AppCompatActivity {
         currentWeatherIcon = findViewById(R.id.weatherCurrentIconIvId);
         currentWeathertemp = findViewById(R.id.tempCurrentWeitherTvId);
         currentWeatherWind = findViewById(R.id.windCurrentWeitherTvId);
-        //currentWeatherHumidity = findViewById(R.id.humidityCurrentWeitherTvId);
+        currentWeatherHumidity = findViewById(R.id.humidityCurrentWeitherTvId);
         currentWeatherLocatonTv = findViewById(R.id.cityStatusCurrentTvId);
         backWIv =findViewById(R.id.backWId);
 
@@ -96,6 +98,7 @@ public class WeatherActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Location location = task.getResult();
+                    url1 = String.format("weather?lat=%f&lon=%f&units=%s&appid=%s", location.getLatitude(), location.getLongitude(), units, getResources().getString(R.string.appid1));
                     url =String.format("forecast?lat=%f&lon=%f&units=%s&appid=%s",location.getLatitude(),location.getLongitude(),units,getResources().getString(R.string.appid));
                    // Toast.makeText(WeatherActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
                     loadinbar.setTitle("Weather");
@@ -133,13 +136,6 @@ public class WeatherActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(WeatherActivity.this));
                     recyclerView.setAdapter(weatherAdapter);
 
-                    currentWeatherDiscription.setText(""+weatherResult.getList().get(2).getWeather().get(0).getDescription());
-                    Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
-                            .append(weatherResult.getList().get(2).getWeather().get(0).getIcon())
-                            .append(".png").toString()).into(currentWeatherIcon);
-                    currentWeathertemp.setText("   "+weatherResult.getList().get(2).getMain().getTemp()+"°C");
-                    currentWeatherWind.setText("Wind :"+weatherResult.getList().get(2).getWind().getSpeed()+" km/h");
-                    currentWeatherLocatonTv.setText(""+weatherResult.getCity().getName());
                     loadinbar.dismiss();
                     //Toast.makeText(WeatherActivity.this, ""+weatherResult.getCity().getCountry(), Toast.LENGTH_SHORT).show();
                 }
@@ -147,6 +143,38 @@ public class WeatherActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<WeatherResult> call, Throwable t) {
+
+            }
+        });
+
+
+        IOpenWeatherMap weatherService= RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
+        Call<WeatherResponse> weatherResponseCall = weatherService.getWeatherData1(url1);
+        weatherResponseCall.enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+
+                if(response.code()==200)
+                {
+                    WeatherResponse weatherResponse = response.body();
+                    currentWeathertemp.setText(String.valueOf(weatherResponse.getMain().getTemp())+"°C");
+                    currentWeatherLocatonTv.setText(String.valueOf(weatherResponse.getName()));
+                    currentWeatherDiscription.setText(String.valueOf(weatherResponse.getWeather().get(0).getDescription()));
+                    currentWeatherHumidity.setText("Humidity: "+(String.valueOf(weatherResponse.getMain().getHumidity()))+"%");
+                    currentWeatherWind.setText("Wind       : "+(String.valueOf(weatherResponse.getWind().getSpeed()))+"km/h");
+                    Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
+                            .append(weatherResponse.getWeather().get(0).getIcon())
+                            .append(".png").toString()).into(currentWeatherIcon);
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+
+
 
             }
         });

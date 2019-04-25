@@ -1,5 +1,6 @@
 package com.kazishihan.tourmate;
 
+import com.kazishihan.tourmate.CurrentWeather.WeatherResponse;
 import com.kazishihan.tourmate.Weither.WeatherResult;
 
 import retrofit2.Call;
@@ -13,6 +14,11 @@ public interface IOpenWeatherMap {
 //                                                    @Query("lat") String lng,
 //                                                    @Query("lat") String appid,
 //                                                    @Query("lat") String unit);
+
+
+     @GET
+     Call<WeatherResponse> getWeatherData1(@Url String url);
+
 
 
 
