@@ -103,7 +103,7 @@
 
             <Button
                 android:textColor="@color/white"
-                android:background="@color/mainColor"
+                android:background="@drawable/mybutton"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"

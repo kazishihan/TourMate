@@ -39,6 +39,8 @@ import com.kazishihan.tourmate.Fragment.WalletFragment;
 import com.kazishihan.tourmate.MapAction.MapsActivity;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth firebaseAuth;
     private String currentuser;
    private DatabaseReference database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         final TextView userNameHeaderTv = (TextView) header.findViewById(R.id.userNameTvId);
         final TextView userEmailHeaderTv = (TextView) header.findViewById(R.id.userEmailTvId);
-        final ImageView userPhotoIV=(ImageView)header.findViewById(R.id.imageView) ;
+        final CircleImageView userPhotoIV=header.findViewById(R.id.imageView) ;
 
         database = FirebaseDatabase.getInstance().getReference().child("UserList");
         database.child(currentuser).addValueEventListener(new ValueEventListener() {
