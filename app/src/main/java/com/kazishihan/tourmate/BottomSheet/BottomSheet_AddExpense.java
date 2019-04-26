@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -80,6 +81,7 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
         expenseTypeEt = view.findViewById(R.id.expenseTypeIdListEtId);
         expenseAmountEt = view.findViewById(R.id.expenseAmountnListEtId);
         addExpensebtnl = view.findViewById(R.id.addExensebtnId);
+        TextView addExpenseTv = view.findViewById(R.id.addExpenseTvId);
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -99,6 +101,8 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
             expenseTypeEt.setText(expenseType);
             expenseAmountEt.setText(expenseAmount);
             addExpensebtnl.setText("Update");
+            addExpenseTv.setText("Update Expense");
+
         }
 
 

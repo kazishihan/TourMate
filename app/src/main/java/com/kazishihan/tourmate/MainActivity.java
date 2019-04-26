@@ -1,5 +1,7 @@
 package com.kazishihan.tourmate;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -197,9 +200,42 @@ public class MainActivity extends AppCompatActivity
 
             } else {
                 // User is signed out
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                LayoutInflater layoutInflater = LayoutInflater.from(this);
+                View view = layoutInflater.inflate(R.layout.alart_signout, null);
+
+                builder.setView(view);
+                final Dialog dialog = builder.create();
+                dialog.show();
+
+                TextView signout = view.findViewById(R.id.signOutTvId);
+                TextView cancel = view.findViewById(R.id.cancelTvID);
+
+               signout.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+
+                       Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                       startActivity(intent);
+
+                    dialog.dismiss();
+                   }
+               });
+
+               cancel.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+
+                    dialog.dismiss();
+                   }
+               });
+
             }
 
         }

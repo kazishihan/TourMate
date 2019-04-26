@@ -193,6 +193,11 @@ public class LoginActivity extends AppCompatActivity {
 //                    String userId = firebaseAuth.getCurrentUser().getUid();
 //                    showInformation(userId);
                 }
+                else {
+
+                    Toast.makeText(LoginActivity.this, "Wrong Email or password", Toast.LENGTH_SHORT).show();
+                    loadinbar.dismiss();
+                }
             }
         });
 
