@@ -51,7 +51,6 @@ public class TicketFragment extends Fragment {
         return view;
     }
 
-
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView Wview, String url) {

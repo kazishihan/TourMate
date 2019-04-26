@@ -107,18 +107,14 @@ public class SignUp extends AppCompatActivity {
 
 
 
-
-
-
-
-                if (password.length() < 6) {
-                    Toast.makeText(SignUp.this, "password would be upto 6 charecter", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 if (firstName.equals("") || lastName.equals("") || email.equals("") || password.equals("") || confirmPassword.equals("")) {
 
                     Toast.makeText(SignUp.this, "All the fields are required", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    Toast.makeText(SignUp.this, "password would be upto 6 charecter", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

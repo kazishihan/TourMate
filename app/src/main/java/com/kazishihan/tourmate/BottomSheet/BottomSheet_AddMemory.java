@@ -95,7 +95,7 @@ public class BottomSheet_AddMemory extends BottomSheetDialogFragment {
 
         //cID= eventIdClass.getEventId();
 
-        Toast.makeText(getContext(), "" + cID, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "" + cID, Toast.LENGTH_SHORT).show();
         uploadimae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -119,6 +119,7 @@
                 app:cardBackgroundColor="@color/mainColor">
 
                 <TextView
+                    android:id="@+id/nearme_cv_TvId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -137,6 +138,7 @@
                 app:cardBackgroundColor="@color/mainColor">
 
                 <TextView
+                    android:id="@+id/weather_cv_TvId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -158,6 +160,7 @@
                 app:cardBackgroundColor="@color/mainColor">
 
                 <TextView
+                    android:id="@+id/ticket_cv_TvId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

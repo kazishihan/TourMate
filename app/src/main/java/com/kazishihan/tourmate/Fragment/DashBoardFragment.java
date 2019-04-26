@@ -130,6 +130,7 @@ public class DashBoardFragment extends Fragment {
 
 
     private CardView nearmeCv, weatherCV, ticketCv, allTripsCv;
+    private TextView nearme_cv_Tv;
 
 
     private NumberFormat nf = new DecimalFormat("##.###");
@@ -168,6 +169,7 @@ public class DashBoardFragment extends Fragment {
         loadinbar = new ProgressDialog(getActivity());
         balanceLayout = view.findViewById(R.id.linlayID);
 
+        nearme_cv_Tv=view.findViewById(R.id.nearme_cv_TvId);
         nearmeCv = view.findViewById(R.id.nearme_CardViewId);
         weatherCV = view.findViewById(R.id.weather_CardViewId);
         ticketCv = view.findViewById(R.id.ticket_CardViewId);
@@ -588,6 +590,9 @@ public class DashBoardFragment extends Fragment {
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
 
                 cardView.setVisibility(View.INVISIBLE);
+                nearme_cv_Tv.setText("My Location");
+                weatherCV.setEnabled(false);
+                ticketCv.setEnabled(false);
 
              loadinbar.dismiss();
 

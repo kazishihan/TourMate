@@ -93,7 +93,7 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
         SimpleDateFormat currenttime = new SimpleDateFormat("HH:mm");
         expenseTime = currenttime.format(callForDate.getTime());
 
-        Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
         if(flag==1)
         {
             expenseTypeEt.setText(expenseType);
