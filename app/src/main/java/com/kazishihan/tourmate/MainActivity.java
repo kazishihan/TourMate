@@ -171,8 +171,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        userNameTv = findViewById(R.id.userNameTvId);
-        userNameTv.setText("Shihan");
+
 
         if (id == R.id.nav_Weather) {
 
@@ -187,51 +186,48 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_Logout) {
 
 
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater layoutInflater = LayoutInflater.from(this);
+            View view = layoutInflater.inflate(R.layout.alart_signout, null);
 
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                // User is signed in
+            builder.setView(view);
+            final Dialog dialog = builder.create();
+            dialog.show();
 
-            } else {
-                // User is signed out
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(intent);
-                FirebaseAuth.getInstance().signOut();
+            TextView signout = view.findViewById(R.id.signOutTvId);
+            TextView cancel = view.findViewById(R.id.cancelTvID);
 
+            signout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                LayoutInflater layoutInflater = LayoutInflater.from(this);
-                View view = layoutInflater.inflate(R.layout.alart_signout, null);
+                    FirebaseAuth.getInstance().signOut();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        // User is signed in
 
-                builder.setView(view);
-                final Dialog dialog = builder.create();
-                dialog.show();
-
-                TextView signout = view.findViewById(R.id.signOutTvId);
-                TextView cancel = view.findViewById(R.id.cancelTvID);
-
-                signout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
+                    } else {
+                        // User is signed out
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
-                        dialog.dismiss();
+
                     }
-                });
 
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        dialog.dismiss();
-                    }
-                });
+                    dialog.dismiss();
+                }
+            });
 
-            }
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    dialog.dismiss();
+                }
+            });
+
 
         } else if (id == R.id.nav_Ticket) {
 
