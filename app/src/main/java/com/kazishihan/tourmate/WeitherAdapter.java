@@ -48,7 +48,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
 
         Date date = new Date();
         date.setDate((weatherResult.getList().get(i).getDt()));
-        viewGroup.weitherDate.setText("Date   : "+weatherResult.getList().get(i).getDt_txt());
+        viewGroup.weitherDate.setText("Date   : " + weatherResult.getList().get(i).getDt_txt());
 
 //        viewGroup.weitherDate.setText("Date   : " + weatherResult.getList().get(i).getDt());
 
@@ -68,7 +68,7 @@ public class WeitherAdapter extends RecyclerView.Adapter<WeitherAdapter.ViewGrou
 
     public class ViewGroup extends RecyclerView.ViewHolder {
         private ImageView weitherIcon;
-        private TextView weitherDate, weitherTemp, weitherWind, weitherHumidity, weitherDescription,weatherLoactionTv;
+        private TextView weitherDate, weitherTemp, weitherWind, weitherHumidity, weitherDescription, weatherLoactionTv;
 
         public ViewGroup(@NonNull View itemView) {
             super(itemView);

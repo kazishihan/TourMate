@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private String currentuser;
-   private DatabaseReference database;
+    private DatabaseReference database;
 
 
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         final TextView userNameHeaderTv = (TextView) header.findViewById(R.id.userNameTvId);
         final TextView userEmailHeaderTv = (TextView) header.findViewById(R.id.userEmailTvId);
-        final CircleImageView userPhotoIV=header.findViewById(R.id.imageView) ;
+        final CircleImageView userPhotoIV = header.findViewById(R.id.imageView);
 
         database = FirebaseDatabase.getInstance().getReference().child("UserList");
         database.child(currentuser).addValueEventListener(new ValueEventListener() {
@@ -90,18 +90,17 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
 
-                 String fname= dataSnapshot.child("firstName").getValue().toString();
-                 String lname = dataSnapshot.child("lastName").getValue().toString();
-                 String email = dataSnapshot.child("email").getValue().toString();
-                 String pfPhoto= dataSnapshot.child("profilePhoto").getValue().toString();
-                 String name = fname+" "+lname;
+                    String fname = dataSnapshot.child("firstName").getValue().toString();
+                    String lname = dataSnapshot.child("lastName").getValue().toString();
+                    String email = dataSnapshot.child("email").getValue().toString();
+                    String pfPhoto = dataSnapshot.child("profilePhoto").getValue().toString();
+                    String name = fname + " " + lname;
                     Uri myUri = Uri.parse(pfPhoto);
                     Picasso.get().load(myUri).into(userPhotoIV);
 
 
-
-                 userNameHeaderTv.setText(name);
-                 userEmailHeaderTv.setText(email);
+                    userNameHeaderTv.setText(name);
+                    userEmailHeaderTv.setText(email);
 
                 } else {
 
@@ -113,11 +112,6 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
-
 
 
     }
@@ -216,31 +210,29 @@ public class MainActivity extends AppCompatActivity
                 TextView signout = view.findViewById(R.id.signOutTvId);
                 TextView cancel = view.findViewById(R.id.cancelTvID);
 
-               signout.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
+                signout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                       Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                       startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
 
-                    dialog.dismiss();
-                   }
-               });
+                        dialog.dismiss();
+                    }
+                });
 
-               cancel.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    dialog.dismiss();
-                   }
-               });
+                        dialog.dismiss();
+                    }
+                });
 
             }
 
-        }
-
-        else if (id == R.id.nav_Ticket) {
+        } else if (id == R.id.nav_Ticket) {
 
             TicketFragment ticketFragment = new TicketFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -256,17 +248,14 @@ public class MainActivity extends AppCompatActivity
 //            fragmentTransaction.replace(R.id.frame_layout_id, tripFragment);
 //            fragmentTransaction.commit();
 
-        }
-        else if (id == R.id.nav_Home) {
+        } else if (id == R.id.nav_Home) {
             DashBoardFragment dashBoardFragment = new DashBoardFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout_id, dashBoardFragment);
             fragmentTransaction.commit();
 
-        }
-
-        else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
 
 
         } else if (id == R.id.nav_send) {

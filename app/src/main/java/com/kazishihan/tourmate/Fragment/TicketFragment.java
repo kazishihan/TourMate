@@ -22,7 +22,6 @@ public class TicketFragment extends Fragment {
     private ProgressDialog loadinbar;
 
 
-
     public TicketFragment() {
         // Required empty public constructor
     }
@@ -32,7 +31,7 @@ public class TicketFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_ticket, container, false);
+        View view = inflater.inflate(R.layout.fragment_ticket, container, false);
         Wview = (WebView) view.findViewById(R.id.webView);
         loadinbar = new ProgressDialog(getContext());
 
@@ -55,7 +54,7 @@ public class TicketFragment extends Fragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView Wview, String url) {
             Wview.loadUrl(url);
-             loadinbar.dismiss();
+            loadinbar.dismiss();
             return true;
         }
     }

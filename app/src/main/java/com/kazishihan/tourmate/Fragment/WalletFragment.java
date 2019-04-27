@@ -58,7 +58,7 @@ public class WalletFragment extends Fragment {
     private NumberFormat nf = new DecimalFormat("##.###");
     //int total;
 
-    private TextView currentBalanceTvId,expensePersentageTv,budExTv;
+    private TextView currentBalanceTvId, expensePersentageTv, budExTv;
 
     ProgressBar progressBar;
 
@@ -140,7 +140,7 @@ public class WalletFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 budget = Integer.valueOf(dataSnapshot.getValue(IndividualTrip.class).getTrip_Budget());
 
-             //   Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
 
                 cBudget = budget;
             }
@@ -189,39 +189,34 @@ public class WalletFragment extends Fragment {
     private void checkBalance(int total, int bud) {
 
         double consumed2 = (Double.valueOf(expenditure) * 100) / Double.valueOf(budget);
-        expensePersentageTv.setText(String.valueOf(nf.format(consumed2))+"%");
-        final int cBalance = bud-total;
-        currentBalanceTvId.setText(String.valueOf(cBalance)+ " BDT");
+        expensePersentageTv.setText(String.valueOf(nf.format(consumed2)) + "%");
+        final int cBalance = bud - total;
+        currentBalanceTvId.setText(String.valueOf(cBalance) + " BDT");
 //        totalBudgetTv.setText("Budget: "+bud+" BDT");
 //        totalexpenseTv.setText("Total Expense: "+total+" BDT");
-        budExTv.setText(total+"/"+bud);
+        budExTv.setText(total + "/" + bud);
 
 
+        // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
 
-                // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                if (cBalance > 0) {
+                    bottomSheet_addExpense = new BottomSheet_AddExpense();
+                    bottomSheet_addExpense.setEventId(eventId);
+                    bottomSheet_addExpense.show(getFragmentManager(), "bottomSheetImageDialog");
 
-                        if (cBalance>0) {
-                            bottomSheet_addExpense = new BottomSheet_AddExpense();
-                            bottomSheet_addExpense.setEventId(eventId);
-                            bottomSheet_addExpense.show(getFragmentManager(), "bottomSheetImageDialog");
+                } else {
 
-                        } else {
+                    Toast.makeText(getContext(), "Insufficient Balance!", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(getContext(), "Insufficient Balance!", Toast.LENGTH_SHORT).show();
-
-                        }
-
+                }
 
 
-                    }
-                });
-
-
-
+            }
+        });
 
 
     }

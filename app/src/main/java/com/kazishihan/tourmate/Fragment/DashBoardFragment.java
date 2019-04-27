@@ -70,7 +70,7 @@ import retrofit2.Response;
  */
 public class DashBoardFragment extends Fragment {
 
-    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv,currentWeatherHumidity;
+    private TextView currentWeatherDiscription, currentWeathertemp, currentWeatherWind, currentWeatherLocatonTv, currentWeatherHumidity;
     private ImageView currentWeatherIcon;
 
     private RecyclerView recyclerView;
@@ -169,7 +169,7 @@ public class DashBoardFragment extends Fragment {
         loadinbar = new ProgressDialog(getActivity());
         balanceLayout = view.findViewById(R.id.linlayID);
 
-        nearme_cv_Tv=view.findViewById(R.id.nearme_cv_TvId);
+        nearme_cv_Tv = view.findViewById(R.id.nearme_cv_TvId);
         nearmeCv = view.findViewById(R.id.nearme_CardViewId);
         weatherCV = view.findViewById(R.id.weather_CardViewId);
         ticketCv = view.findViewById(R.id.ticket_CardViewId);
@@ -377,8 +377,6 @@ public class DashBoardFragment extends Fragment {
                         }
 
 
-
-
                     }
                     // Toast.makeText(getContext(), ""+filterList.size(), Toast.LENGTH_SHORT).show();
 
@@ -556,22 +554,21 @@ public class DashBoardFragment extends Fragment {
 
     private void getWeatherUpdate() {
 
-        IOpenWeatherMap weatherService= RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
+        IOpenWeatherMap weatherService = RetrofitClass.getRetrofitInstance().create(IOpenWeatherMap.class);
         Call<WeatherResponse> weatherResponseCall = weatherService.getWeatherData1(url);
         weatherResponseCall.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
 
-                if(response.code()==200)
-                {
+                if (response.code() == 200) {
 
 
                     WeatherResponse weatherResponse = response.body();
-                    currentWeathertemp.setText(String.valueOf(weatherResponse.getMain().getTemp())+"°C");
+                    currentWeathertemp.setText(String.valueOf(weatherResponse.getMain().getTemp()) + "°C");
                     currentWeatherLocatonTv.setText(String.valueOf(weatherResponse.getName()));
                     currentWeatherDiscription.setText(String.valueOf(weatherResponse.getWeather().get(0).getDescription()));
-                    currentWeatherHumidity.setText("Humidity: "+(String.valueOf(weatherResponse.getMain().getHumidity()))+"%");
-                    currentWeatherWind.setText("Wind       : "+(String.valueOf(weatherResponse.getWind().getSpeed()))+"km/h");
+                    currentWeatherHumidity.setText("Humidity: " + (String.valueOf(weatherResponse.getMain().getHumidity())) + "%");
+                    currentWeatherWind.setText("Wind       : " + (String.valueOf(weatherResponse.getWind().getSpeed())) + "km/h");
                     Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
                             .append(weatherResponse.getWeather().get(0).getIcon())
                             .append(".png").toString()).into(currentWeatherIcon);
@@ -594,7 +591,7 @@ public class DashBoardFragment extends Fragment {
                 weatherCV.setEnabled(false);
                 ticketCv.setEnabled(false);
 
-             loadinbar.dismiss();
+                loadinbar.dismiss();
 
 
             }

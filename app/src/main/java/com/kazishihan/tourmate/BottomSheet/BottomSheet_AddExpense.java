@@ -47,8 +47,8 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
 
 
     String expenseType;
-    String expenseAmount ;
-    int flag=0;
+    String expenseAmount;
+    int flag = 0;
     String curentExpenseId;
 
 
@@ -95,9 +95,8 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
         SimpleDateFormat currenttime = new SimpleDateFormat("HH:mm");
         expenseTime = currenttime.format(callForDate.getTime());
 
-       // Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
-        if(flag==1)
-        {
+        // Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
+        if (flag == 1) {
             expenseTypeEt.setText(expenseType);
             expenseAmountEt.setText(expenseAmount);
             addExpensebtnl.setText("Update");
@@ -110,8 +109,8 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
 
-               expenseType = expenseTypeEt.getText().toString();
-               expenseAmount = expenseAmountEt.getText().toString();
+                expenseType = expenseTypeEt.getText().toString();
+                expenseAmount = expenseAmountEt.getText().toString();
 
                 if (expenseType == null) {
                     Toast.makeText(getContext(), "enter expense Type", Toast.LENGTH_SHORT).show();
@@ -122,7 +121,6 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
                     Toast.makeText(getContext(), "enter expense amount", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
 
                 saveToDB(new Expense(expenseType, expenseAmount, expenseTime));
@@ -137,10 +135,9 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
 
     private void saveToDB(Expense expense) {
 
-       // Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getContext(), "Flag"+flag, Toast.LENGTH_SHORT).show();
 
-        if(flag==1)
-        {
+        if (flag == 1) {
             DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser).child("Events").child(eventId);
 
             //String memoryId = userDB.push().getKey();
@@ -156,9 +153,7 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
                 }
             });
 
-        }
-
-        else{
+        } else {
 
             DatabaseReference userDB = firebaseDatabase.getReference().child("UserList").child(currentuser).child("Events").child(eventId);
 
@@ -177,8 +172,6 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
 
 
         }
-
-
 
 
     }

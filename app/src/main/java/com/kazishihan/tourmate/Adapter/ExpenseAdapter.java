@@ -92,7 +92,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
                                 bottomSheet_addExpense.setExpenseAmount(expenseitem.getExpenseAmount());
                                 bottomSheet_addExpense.setFlag(1);
                                 bottomSheet_addExpense.setCurentExpenseId(expenseitem.getExpenseId());
-                                bottomSheet_addExpense.show(fragmentManager2,"bottom");
+                                bottomSheet_addExpense.show(fragmentManager2, "bottom");
 
                                 break;
                             case R.id.deleteWaletMenu:

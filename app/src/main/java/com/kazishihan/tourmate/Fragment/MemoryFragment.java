@@ -38,7 +38,6 @@ public class MemoryFragment extends Fragment {
     // private BottomSheet_AddMemory bottomSheet_addMemory;
 
 
-
     private DatabaseReference database;
     private MomentAdapter momentAdapter;
     private List<MemoryClass> memorylist;
@@ -75,7 +74,6 @@ public class MemoryFragment extends Fragment {
         loadinbar = new ProgressDialog(getContext());
 
 
-
         memoryRecycler.setLayoutManager(new LinearLayoutManager(null));
 
         loadinbar.setTitle("Add new Post");
@@ -105,7 +103,6 @@ public class MemoryFragment extends Fragment {
         });
 
 
-
         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(eventId);
         database.child("Memories").addValueEventListener(new ValueEventListener() {
             @Override
@@ -116,7 +113,7 @@ public class MemoryFragment extends Fragment {
                         MemoryClass memoryClass = data.getValue(MemoryClass.class);
                         memorylist.add(memoryClass);
                     }
-                   // Toast.makeText(getContext(), "" + memorylist.size(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "" + memorylist.size(), Toast.LENGTH_SHORT).show();
                     momentAdapter = new MomentAdapter(memorylist, getContext());
                     memoryRecycler.setAdapter(momentAdapter);
                     momentAdapter.notifyDataSetChanged();

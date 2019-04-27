@@ -98,7 +98,7 @@ public class BottomSheet_AddTrip extends BottomSheetDialogFragment {
             addTripDiscription.setText(tripDescription);
             addTripStartPlace.setText(tripStart);
             addTripBudget.setText(tripBudget);
-            Toast.makeText(getContext(), "date" + selectedFromDateinMS, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "date" + selectedFromDateinMS, Toast.LENGTH_SHORT).show();
             Date date = new Date();
             SimpleDateFormat dateSDF = new SimpleDateFormat("dd MMM yyyy");
             date.setTime(selectedFromDateinMS);
