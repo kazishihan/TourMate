@@ -47,11 +47,6 @@ public class SignUp extends AppCompatActivity {
     private String imageUrl;
     private ProgressDialog loadinbar;
 
-    String firstName;
-    String lastName ;
-    String email;
-    String password ;
-    String confirmPassword ;
 
     private static final int Gallery_Pick = 1;
     private Uri ImageUri;
@@ -86,11 +81,11 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 firstName = fnameET.getText().toString();
-                lastName = lnameEt.getText().toString();
-                email = emailEt.getText().toString();
-                 password = passwordEt.getText().toString();
-                 confirmPassword = confirmpassEt.getText().toString();
+                final String firstName = fnameET.getText().toString();
+                final String lastName = lnameEt.getText().toString();
+                final String email = emailEt.getText().toString();
+                final String password = passwordEt.getText().toString();
+                final String confirmPassword = confirmpassEt.getText().toString();
 
 
                 Calendar callForDate = Calendar.getInstance();
@@ -106,58 +101,49 @@ public class SignUp extends AppCompatActivity {
                 //signUpWithEmailAndPassword(firstName, lastName, email, password);
 
 
-
                 if (firstName.equals("") || lastName.equals("") || email.equals("") || password.equals("") || confirmPassword.equals("")) {
 
                     Toast.makeText(SignUp.this, "All the fields are required", Toast.LENGTH_SHORT).show();
                     return;
-                }
-
-                if (password.length() < 6) {
+                } else if (password.length() < 6) {
                     Toast.makeText(SignUp.this, "password would be upto 6 charecter", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (ImageUri == null) {
+                    Toast.makeText(SignUp.this, "Please select an Image", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (emailEt.getText().toString().trim().matches(emailPattern)) {
+                else if (emailEt.getText().toString().trim().matches(emailPattern)) {
 
-                    if (password.contains(confirmPassword)) {
-
-                        if (ImageUri == null) {
-                            Toast.makeText(SignUp.this, "Please select an Image", Toast.LENGTH_SHORT).show();
-                        } else {
-
-                            loadinbar.setTitle("SignUp");
-                            loadinbar.setMessage("Signing up");
-                            loadinbar.show();
-                            loadinbar.setCanceledOnTouchOutside(true);
-
-                            final StorageReference filepath = FirebaseStorage.getInstance().getReference().child("Post Images").child(ImageUri.getLastPathSegment() + postrandomname + ".jpg");
-                            filepath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                    if (task.isSuccessful()) {
-//                    Task<Uri> downloadUrl = task.getResult().getMetadata().getReference().getDownloadUrl();
-//                    downloadurl = downloadUrl.toString();
-//                    Toast.makeText(AddMemory.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
-
-                                        Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
-                                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                downloadurl = uri.toString();
-                                                signUpWithEmailAndPassword(firstName, lastName, email, password,downloadurl);
-                                                // savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl, savecurrentdate, savecurrenttime));
-                                            }
-                                        });
+                    if (password !=confirmPassword==false) {
 
 
-                                        //savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl));
-                                    }
+                        loadinbar.setTitle("SignUp");
+                        loadinbar.setMessage("Signing up");
+                        loadinbar.show();
+                        loadinbar.setCanceledOnTouchOutside(true);
+
+                        final StorageReference filepath = FirebaseStorage.getInstance().getReference().child("Post Images").child(ImageUri.getLastPathSegment() + postrandomname + ".jpg");
+                        filepath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                if (task.isSuccessful()) {
+
+                                    Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            downloadurl = uri.toString();
+                                            signUpWithEmailAndPassword(firstName, lastName, email, password, downloadurl);
+                                            // savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl, savecurrentdate, savecurrenttime));
+                                        }
+                                    });
+
+
+                                    //savingPostInformationtoDatabase(new MemoryClass(mdesc, mtitle, downloadurl));
                                 }
-                            });
-
-                        }
-
+                            }
+                        });
 
 
                     } else {
@@ -175,7 +161,6 @@ public class SignUp extends AppCompatActivity {
         });
 
 
-
     }
 
 
@@ -190,7 +175,6 @@ public class SignUp extends AppCompatActivity {
         }
         return byteBuffer.toByteArray();
     }
-
 
 
     private void signUpWithEmailAndPassword(final String firstName, String lastName, String email, final String password, final String image) {
@@ -221,8 +205,8 @@ public class SignUp extends AppCompatActivity {
                                 imageView.setVisibility(View.INVISIBLE);
                                 loadinbar.dismiss();
                                 Toast.makeText(SignUp.this, "Sign Up success", Toast.LENGTH_SHORT).show();
-                               // Intent intent = new Intent(SignUp.this, LoginActivity.class);
-                               // startActivity(intent);
+                                // Intent intent = new Intent(SignUp.this, LoginActivity.class);
+                                // startActivity(intent);
                             } else {
                                 Toast.makeText(SignUp.this, "Sign Up not success", Toast.LENGTH_SHORT).show();
                             }

@@ -146,9 +146,6 @@
             android:textSize="16sp" />
 
     </RelativeLayout>
-
-
-
     <Button
         android:id="@+id/addTrip"
         android:textColor="@color/white"
@@ -159,8 +156,4 @@
         android:background="@drawable/mybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-
-
-
 </LinearLayout>
