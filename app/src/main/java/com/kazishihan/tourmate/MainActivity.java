@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Logout) {
 
-            FirebaseAuth.getInstance().signOut();
+
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity
 //                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                startActivity(intent);
+                FirebaseAuth.getInstance().signOut();
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
