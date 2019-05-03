@@ -18,11 +18,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kazishihan.tourmate.Classes.Expense;
+import com.kazishihan.tourmate.Classes.IndividualTrip;
 import com.kazishihan.tourmate.R;
 
 import java.text.SimpleDateFormat;
@@ -50,6 +54,17 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
     String expenseAmount;
     int flag = 0;
     String curentExpenseId;
+
+
+    int expenditure;
+    int reducedBudget = 0;
+    int budget;
+    int consumed;
+    int total = 0;
+    int cbalance=0;
+
+    int cBudget;
+    int cExpense;
 
 
     public void setCurentExpenseId(String curentExpenseId) {
@@ -109,28 +124,116 @@ public class BottomSheet_AddExpense extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
 
-                expenseType = expenseTypeEt.getText().toString();
-                expenseAmount = expenseAmountEt.getText().toString();
-
-                if (expenseType == null) {
-                    Toast.makeText(getContext(), "enter expense Type", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (expenseAmount == null) {
-                    Toast.makeText(getContext(), "enter expense amount", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
 
-                saveToDB(new Expense(expenseType, expenseAmount, expenseTime));
+               DatabaseReference dataB = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser);
+                dataB.child("Events").child(eventId).child("info").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            budget = Integer.valueOf(dataSnapshot.getValue(IndividualTrip.class).getTrip_Budget());
+                        }
+
+                        //   Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
+
+                        cBudget = budget;
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+              DatabaseReference  database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(eventId);
+                database.child("Wallet").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        //int total = 0;
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            int number = Integer.valueOf(ds.getValue(Expense.class).getExpenseAmount());
+                            total = total + number;
+                        }
+
+                        //   Toast.makeText(getContext(), "Total Value"+total, Toast.LENGTH_SHORT).show();
+                        expenditure = total;
+                        // cExpense = expenditure;
+
+                        if(cbalance==0)
+                        {
+                            checkBalance(total, budget);
+                            cbalance++;
+                        }
+
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
 
 
             }
+
+
         });
 
 
         return view;
+    }
+
+
+    private void checkBalance(int total, int bud) {
+
+
+        double consumed2 = (Double.valueOf(expenditure) * 100) / Double.valueOf(budget);
+
+        final int cBalance = bud - total;
+        expenseType = expenseTypeEt.getText().toString();
+        expenseAmount = expenseAmountEt.getText().toString();
+
+
+        double exAmount = Double.valueOf(expenseAmount);
+
+        double balaneStatus = cBalance - exAmount;
+        if (balaneStatus < 0) {
+            Toast.makeText(getContext(), "Insufficient Balance", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        addExpense();
+
+        // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+
+    private void addExpense() {
+        expenseType = expenseTypeEt.getText().toString();
+        expenseAmount = expenseAmountEt.getText().toString();
+
+        if (expenseType == null) {
+            Toast.makeText(getContext(), "enter expense Type", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (expenseAmount == null) {
+            Toast.makeText(getContext(), "enter expense amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        saveToDB(new Expense(expenseType, expenseAmount, expenseTime));
+
     }
 
     private void saveToDB(Expense expense) {

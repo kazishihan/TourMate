@@ -50,10 +50,12 @@ public class WalletFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     private List<Expense> expenseList;
+    private List<Expense> filterList;
     private ExpenseAdapter expenseAdapter;
     //private Context context;
     private FirebaseAuth firebaseAuth;
     private String currentuser;
+
 
     private NumberFormat nf = new DecimalFormat("##.###");
     //int total;
@@ -82,7 +84,7 @@ public class WalletFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet, container, false);
 
-
+        filterList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser().getUid();
@@ -124,6 +126,10 @@ public class WalletFragment extends Fragment {
                     expenseAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+                    expenseAdapter = new ExpenseAdapter(filterList, getContext());
+                    expenseAdapter.setEventId(eventId);
+                    recyclerView.setAdapter(expenseAdapter);
+                    expenseAdapter.notifyDataSetChanged();
                 }
             }
 
