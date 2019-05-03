@@ -296,7 +296,12 @@ public class TripFragment extends Fragment {
                     tripAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+                    tripAdapter = new TripAdapter(filterList, getContext());
+                    triprecyclerView.setAdapter(tripAdapter);
+                    tripAdapter.notifyDataSetChanged();
+
                 }
+
             }
 
             @Override
@@ -304,6 +309,7 @@ public class TripFragment extends Fragment {
                 Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 
@@ -394,7 +400,10 @@ public class TripFragment extends Fragment {
                             triprecyclerView.setAdapter(tripAdapter);
                             tripAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getActivity(), "Empty database", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "Empty database1", Toast.LENGTH_SHORT).show();
+                            tripAdapter = new TripAdapter(filterList, getContext());
+                            triprecyclerView.setAdapter(tripAdapter);
+                            tripAdapter.notifyDataSetChanged();
                         }
                     }
 

@@ -50,6 +50,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         this.context = context;
     }
 
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -276,8 +278,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                                         firebaseAuth = FirebaseAuth.getInstance();
                                         currentuser = firebaseAuth.getCurrentUser().getUid();
                                         database = FirebaseDatabase.getInstance().getReference().child("UserList").child(currentuser).child("Events").child(mylist.getTrip_id()).removeValue();
-
-                                        notifyDataSetChanged();
                                         dialog.dismiss();
                                     }
                                 });

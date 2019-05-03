@@ -138,6 +138,7 @@ public class WalletFragment extends Fragment {
         dataB.child("Events").child(eventId).child("info").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 budget = Integer.valueOf(dataSnapshot.getValue(IndividualTrip.class).getTrip_Budget());
 
                 //   Toast.makeText(getContext(), "Budget" + budget, Toast.LENGTH_SHORT).show();
