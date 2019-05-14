@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +35,8 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
 
     private List<MemoryClass> memoryClasses;
     Context context;
+
+    Uri myUri;
 
 
 
@@ -57,15 +60,16 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
 
         final MemoryClass memoryList = memoryClasses.get(i);
 
-        Uri myUri = Uri.parse(memoryList.getPostimages());
+         myUri = Uri.parse(memoryList.getPostimages());
         Picasso.get().load(myUri).into(viewHolder.memoryImage);
         viewHolder.imageCaption.setText(memoryList.getCaption());
 
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -94,6 +98,44 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
                         dialog.dismiss();
                     }
                 });
+
+
+
+                return false;
+            }
+        });
+
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                View view = layoutInflater.inflate(R.layout.alart_dialog_zoom_image, null);
+
+                builder.setView(view);
+                final Dialog dialog = builder.create();
+
+                TextView zoomCloseTv;
+                zoomCloseTv=view.findViewById(R.id.zoomcloseTvId);
+
+                PhotoView photoView = (PhotoView) view.findViewById(R.id.photo_view);
+                myUri = Uri.parse(memoryList.getPostimages());
+                Picasso.get().load(myUri).into(photoView);
+               // photoView.setImageResource(R.drawable.image);
+
+                dialog.show();
+
+                 zoomCloseTv.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+
+                         dialog.dismiss();
+                     }
+                 });
+
 
             }
         });
