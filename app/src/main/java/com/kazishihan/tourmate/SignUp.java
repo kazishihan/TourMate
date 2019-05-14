@@ -115,7 +115,7 @@ public class SignUp extends AppCompatActivity {
 
                 else if (emailEt.getText().toString().trim().matches(emailPattern)) {
 
-                    if (password !=confirmPassword==false) {
+                    if (confirmPassword.contains(password)) {
 
 
                         loadinbar.setTitle("SignUp");
@@ -205,8 +205,8 @@ public class SignUp extends AppCompatActivity {
                                 imageView.setVisibility(View.INVISIBLE);
                                 loadinbar.dismiss();
                                 Toast.makeText(SignUp.this, "Sign Up success", Toast.LENGTH_SHORT).show();
-                                // Intent intent = new Intent(SignUp.this, LoginActivity.class);
-                                // startActivity(intent);
+                                 Intent intent = new Intent(SignUp.this, LoginActivity.class);
+                                 startActivity(intent);
                             } else {
                                 Toast.makeText(SignUp.this, "Sign Up not success", Toast.LENGTH_SHORT).show();
                             }
