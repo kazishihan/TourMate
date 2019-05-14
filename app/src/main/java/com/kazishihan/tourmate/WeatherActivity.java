@@ -167,12 +167,10 @@ public class WeatherActivity extends AppCompatActivity {
                             .append(".png").toString()).into(currentWeatherIcon);
                 }
 
-
             }
 
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
-
 
 
             }
