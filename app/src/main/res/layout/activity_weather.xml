@@ -10,7 +10,6 @@
 
 
     <android.support.v7.widget.CardView
-        android:onClick="weatherCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -26,16 +25,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:src="@drawable/back"
                 android:tint="@color/mainColor" />
 
 
             <ImageView
                 android:id="@+id/weatherCurrentIconIvId"
-                android:layout_width="100dp"
-
-                android:layout_height="110dp"
+                android:layout_width="80dp"
+                android:layout_height="90dp"
                 android:layout_marginTop="8dp"
                 android:src="@mipmap/ic_launcher" />
 
@@ -48,7 +46,6 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:padding="5dp">
@@ -105,10 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:text="30*C"
                     android:textColor="@color/darkRed"
-                    android:textSize="32sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
