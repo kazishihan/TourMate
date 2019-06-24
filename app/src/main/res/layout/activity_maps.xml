@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/B_schools"
         android:onClick="onClick"
-        android:text="Restautants" />
+        android:text="Govt_office" />
 
 
     <Button

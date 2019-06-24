@@ -203,7 +203,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.B_restaurants:
                 mMap.clear();
-                String resturant = "restuarant";
+                String resturant = "local_government_office";
                 url = getUrl(latitude, longitude, resturant);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
