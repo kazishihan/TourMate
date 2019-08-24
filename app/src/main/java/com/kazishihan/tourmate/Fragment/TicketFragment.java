@@ -37,13 +37,13 @@ public class TicketFragment extends Fragment {
 
         Wview.getSettings().setJavaScriptEnabled(true);
 
-        loadinbar.setTitle("Add new memory");
-        loadinbar.setMessage("Uploading new memory");
+        loadinbar.setTitle("Loaing...");
+        loadinbar.setMessage("Loading data");
         loadinbar.show();
         loadinbar.setCanceledOnTouchOutside(true);
 
         Wview.setWebViewClient(new MyBrowser());
-        Wview.loadUrl("http://shohoz.com/");
+        Wview.loadUrl("https://www.shohoz.com/bus-tickets/");
 
         Wview.setWebChromeClient(new WebChromeClient());
 
@@ -53,9 +53,17 @@ public class TicketFragment extends Fragment {
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView Wview, String url) {
+
             Wview.loadUrl(url);
             loadinbar.dismiss();
             return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            loadinbar.dismiss();
+
         }
     }
 

@@ -186,10 +186,6 @@ public class WalletFragment extends Fragment {
             }
         });
 
-
-        // Toast.makeText(getContext(), "aaaaaa"+expenditure, Toast.LENGTH_SHORT).show();
-
-
         return view;
     }
 
@@ -199,12 +195,9 @@ public class WalletFragment extends Fragment {
         expensePersentageTv.setText(String.valueOf(nf.format(consumed2)) + "%");
         final int cBalance = bud - total;
         currentBalanceTvId.setText(String.valueOf(cBalance) + " BDT");
-//        totalBudgetTv.setText("Budget: "+bud+" BDT");
-//        totalexpenseTv.setText("Total Expense: "+total+" BDT");
+
         budExTv.setText(total + "/" + bud);
 
-
-        // Toast.makeText(getContext(), "no balance", Toast.LENGTH_SHORT).show();
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
